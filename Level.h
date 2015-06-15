@@ -13,7 +13,24 @@
 #include "MyEntity.h"
 #include <vector>
 
-class Level
+#include <PxPhysicsAPI.h>
+#include <extensions/PxExtensionsAPI.h>
+#include <extensions/PxDefaultErrorCallback.h>
+#include <extensions/PxDefaultAllocator.h>
+#include <extensions/PxDefaultSimulationFilterShader.h>
+#include <extensions/PxDefaultCpuDispatcher.h>
+#include <extensions/PxShapeExt.h>
+#include <extensions/PxSimpleFactory.h>
+#include <foundation/PxMat33.h>
+#include <foundation/PxFoundation.h>
+#include <PxSimulationEventCallback.h>
+
+
+using namespace physx;
+
+
+
+class Level : public PxSimulationEventCallback
 {
 public:
     Level();
@@ -22,6 +39,16 @@ public:
     void AddEntity(Entity* TheEntity);
     void Start();
     void Update();
+    
+    ////////////////////////////////////////////////////////////
+    
+    // For PxSimulationEventCallback
+    
+    virtual void							onContact(const PxContactPairHeader& pairHeader,const PxContactPair* pairs,PxU32 nbPairs);
+    virtual void							onTrigger(PxTriggerPair* pairs,PxU32 count);
+    virtual void							onConstraintBreak(PxConstraintInfo*, PxU32) {}
+    virtual void							onWake(PxActor** , PxU32 ) {}
+    virtual void							onSleep(PxActor** , PxU32 ){}
     
 private:
     std::vector<Entity*> *Entities;

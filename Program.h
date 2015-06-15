@@ -22,6 +22,9 @@
 #include "Entity.h"
 #include "Level.h"
 
+
+#include "PhysxManager.h"
+
 class Program
 {
 public:
@@ -39,6 +42,10 @@ public:
     static void reshape(int width, int height);
     static void keyb(unsigned char key, int x, int y);
     void SetLevel(Level* level);
+    static float testx;
+    static float testy;
+    static float testz;
+    
     
     
 private:

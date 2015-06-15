@@ -16,4 +16,6 @@ public:
     
     virtual void Update();
     virtual void Start();
+    
+    RenderComponent* MyRenderComp;
 };

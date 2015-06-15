@@ -10,6 +10,7 @@
 
 #include "Component.h"
 #include <GL/freeglut.h>
+#include "HIDManager.h"
 
 class RenderComponent : public Component
 {

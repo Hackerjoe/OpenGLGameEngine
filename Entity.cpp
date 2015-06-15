@@ -8,6 +8,7 @@
 
 #include "Entity.h"
 
+
 Entity::Entity(float x,float y,float z)
 {
     Components = new std::vector<Component*>;

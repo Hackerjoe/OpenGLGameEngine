@@ -9,12 +9,13 @@
 #include "Level.h"
 
 
-Level::Level()
+Level::Level():PxSimulationEventCallback()
 {
     Entities = new std::vector<Entity*>;
     MyEntity* hi = new MyEntity(0,0,0);
-    
     AddEntity(hi);
+    
+    AddEntity(new MyEntity(1,0,0));
     
 }
 
@@ -40,3 +41,14 @@ void Level::AddEntity(Entity *TheEntity)
     std::cout << TheEntity->Postion->x;
     Entities->push_back(TheEntity);
 }
+
+void Level::onContact(const physx::PxContactPairHeader &pairHeader, const physx::PxContactPair *pairs, PxU32 nbPairs)
+{
+    
+}
+
+void Level::onTrigger(physx::PxTriggerPair *pairs, PxU32 count)
+{
+    
+}
+

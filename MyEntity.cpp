@@ -11,7 +11,8 @@
 MyEntity::MyEntity(float x,float y,float z)
     :Entity(x,y,z)
 {
-    this->AddComponent(new RenderComponent());
+    MyRenderComp = new RenderComponent();
+    this->AddComponent(MyRenderComp);
 }
 
 MyEntity::~MyEntity()

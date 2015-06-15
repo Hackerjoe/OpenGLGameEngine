@@ -8,6 +8,8 @@
 
 #include "Program.h"
 #include <iostream>
+#include "HIDManager.h"
+
 Program::Program()
 {
     ScreenWidth = 640;
@@ -15,8 +17,16 @@ Program::Program()
     TheLevel = new Level();
 }
 
+float Program::testx = 0;
+float Program::testy = 0;
+float Program::testz = 5;
+
+
+
 bool Program::Init(int argc, char** argv)
 {
+    
+    
     //Init Glut and a window
     glutInit(&argc, argv);
     //glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
@@ -27,7 +37,7 @@ bool Program::Init(int argc, char** argv)
     glEnable(GL_TEXTURE_2D);
     glClearColor (0.0, 1.0, 1.0, 1.0);
     glEnable(GL_DEPTH_TEST);
-    glViewport(0, 0, 640, 480   );
+    glViewport(0, 0, 640, 480  );
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45.,(GLfloat) ScreenHeight/(GLfloat) ScreenWidth,0.1, 800.0);
@@ -42,7 +52,9 @@ bool Program::Init(int argc, char** argv)
     
     //Setup glut callbacks
     glutReshapeFunc(reshape);
-    glutKeyboardFunc(keyb);
+    glutKeyboardFunc(HIDManager::Instance()->KeyBoardFunc);
+    glutKeyboardUpFunc(HIDManager::Instance()->KeyBoardUpFunc);
+    
     
     printf("\n%s\n", glGetString(GL_VERSION));
     
@@ -63,6 +75,8 @@ bool Program::Init(int argc, char** argv)
         return false;
     }
     
+    PhysxManager::Instance()->Init();
+    
         
     return true;
 }
@@ -70,35 +84,55 @@ bool Program::Init(int argc, char** argv)
 
 void Program::render()
 {
+    if(HIDManager::GetKey('w'))
+    {
+        testz -= 0.1f;
+    }
+    if(HIDManager::GetKey('s'))
+    {
+        testz += 0.1f;
+    }
+    if(HIDManager::GetKey('a'))
+    {
+        testx -= 0.1f;
+    }
+    if(HIDManager::GetKey('d'))
+    {
+        testx += 0.1f;
+    }
+    if(HIDManager::GetKey('`'))
+    {
+        //glutLeaveMainLoop();
+        glutFullScreen();
+        
+    }
+    
+   
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //glViewport(0, 0, ScreenWidth, ScreenHeight);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.,(GLfloat) ScreenWidth/(GLfloat) ScreenHeight,0.1, 800.0);
+    
+    gluLookAt(testx,testy,testz, 0.0, 0.0, 0.0, 0,1,0);
+    glMatrixMode(GL_MODELVIEW);
     TheLevel->Update();
     glutSwapBuffers();
+    
+    
+    glutPostRedisplay();
 }
 
 void Program::reshape(int width, int height)
 {
-    glViewport(0, 0, width, height);
+    /*glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45.,(GLfloat) width/(GLfloat) height,0.1, 800.0);
-    gluLookAt(0.0,0.0,5.0, 0.0, 0.0, 0.0, 0,1,0);
-    glMatrixMode(GL_MODELVIEW);
-}
 
-void Program::keyb(unsigned char key, int x, int y)
-{
-    switch (key){
-        case 'a':
-            glutFullScreen();
-            break;
-        case 'q':
-            glutReshapeWindow(640, 480);
-            glutPositionWindow(100, 100);
-            break;
-        case '`':
-            //glutLeaveMainLoop();
-            break;
-    }
+    gluLookAt(0.0,0.0,5.0, 0.0, 0.0, 0.0, 0,1,0);
+    glMatrixMode(GL_MODELVIEW);*/
+
 }
 
 void Program::SetLevel(Level* level)

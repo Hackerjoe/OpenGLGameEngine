@@ -9,6 +9,7 @@
 #include <iostream>
 #include "GL/glew.h"
 #include <GL/freeglut.h>
+
 //#include <stdio.h>
 //#include <AL/alut.h>
 //#include <stdlib.h>
@@ -55,8 +56,10 @@ int main(int argc, char** argv)
     
     //Work around to render.
     glutDisplayFunc(display);
-    glutIdleFunc(display);
+    //glutIdleFunc(display);
+    
     glutMainLoop();
+    
    
     //glutReshapeFunc(reshape);
     
