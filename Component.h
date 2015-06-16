@@ -25,6 +25,6 @@ public:
     virtual void Update();
     Entity* Parent;
 };
-//#include "Entity.h"
+
 
 #endif

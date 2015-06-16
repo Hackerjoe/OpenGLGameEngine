@@ -34,15 +34,14 @@ public:
     void Init();
     void ShutDown();
     
+    PxPhysics *mPhysics = NULL;
+    PxFoundation *mFoundation = NULL;
+    
+    void GetPhysxMatrix(PxMat33 m, PxVec3 t, float* mat);
     
 private:
     PhysxManager();
     ~PhysxManager();
-    
-    PxPhysics *mPhysics = NULL;
-    PxFoundation *mFoundation = NULL;
-    
-    
     
     static PhysxManager* pInstance;
     

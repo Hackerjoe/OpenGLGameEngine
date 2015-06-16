@@ -25,6 +25,8 @@
 #include <foundation/PxFoundation.h>
 #include <PxSimulationEventCallback.h>
 
+#include "PhysxManager.h"
+
 
 using namespace physx;
 
@@ -50,7 +52,23 @@ public:
     virtual void							onWake(PxActor** , PxU32 ) {}
     virtual void							onSleep(PxActor** , PxU32 ){}
     
+    ///////////////////////////////////////////////////////////
+    
+    // Physx Scene
+    
+    PxScene *mScene;
+    
+    void InitPxScene();
+    
+    PxSimulationFilterShader gDefaultFilterShader = PxDefaultSimulationFilterShader;
+    
 private:
+    
+    
+    void StepPhysx();
+    
+    PxReal PhysxTimeStep = 1.0f/60.0f;
+    
     std::vector<Entity*> *Entities;
     
 };

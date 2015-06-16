@@ -32,6 +32,11 @@ void RenderComponent::Draw()
     t+=1;
     glPushMatrix();
     float mat[16];
+    
+    /*
+     * I am finding out how 4x4 model view matrices work
+     */
+    
     mat[0] = 1;
     mat[1] = 0;
     mat[2] = 0;
@@ -46,7 +51,7 @@ void RenderComponent::Draw()
     mat[9] = 0;
     mat[10] = 1;
     mat[11] = 0;
-    
+    //Position
     mat[12] = 0;
     mat[13] = 0;
     mat[14] = 0;

@@ -14,7 +14,7 @@ Program::Program()
 {
     ScreenWidth = 640;
     ScreenHeight = 480;
-    TheLevel = new Level();
+    
 }
 
 float Program::testx = 0;
@@ -76,6 +76,8 @@ bool Program::Init(int argc, char** argv)
     }
     
     PhysxManager::Instance()->Init();
+    
+    TheLevel = new Level();
     
         
     return true;
