@@ -16,7 +16,7 @@ Level::Level():PxSimulationEventCallback()
     MyEntity* hi = new MyEntity(0,0,0);
     AddEntity(hi);
     
-    AddEntity(new MyEntity(1,0,0));
+    //AddEntity(new MyEntity(1,0,0));
     
 }
 
@@ -61,7 +61,8 @@ void Level::InitPxScene()
     PxSceneDesc sceneDesc(PhysxManager::Instance()->mPhysics->getTolerancesScale());
     sceneDesc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
     
-    if(!sceneDesc.cpuDispatcher) {
+    if(!sceneDesc.cpuDispatcher)
+    {
         
         PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
         
@@ -76,9 +77,14 @@ void Level::InitPxScene()
     
     mScene = PhysxManager::Instance()->mPhysics->createScene(sceneDesc);
     
-    if (mScene == NULL) {
+    
+    if (mScene == NULL)
+    {
         std::cerr << "Scene was not created" << std::endl;
     }
+    
+    
+    PhysxManager::Instance()->SetCurrentScene(mScene);
     
     mScene->setVisualizationParameter(PxVisualizationParameter::eSCALE,     1.0);
     mScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);

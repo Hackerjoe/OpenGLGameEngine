@@ -12,7 +12,14 @@ MyEntity::MyEntity(float x,float y,float z)
     :Entity(x,y,z)
 {
     MyRenderComp = new RenderComponent();
+    PxVec3 dimensions(0.5,0.5,0.5);
+    PxBoxGeometry geometry(dimensions);
+    //PxMaterial* mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);//phymPhysics->createMaterial(0.5,0.5,0.5);
+    MyPhysxComp = new PhysxComponent(geometry,*new PxVec3(0,0,0),*new PxVec3(0.5,0.5,0.5));
+    
     this->AddComponent(MyRenderComp);
+    this->AddComponent(MyPhysxComp);
+    
 }
 
 MyEntity::~MyEntity()

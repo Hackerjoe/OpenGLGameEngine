@@ -11,6 +11,7 @@
 
 Entity::Entity(float x,float y,float z)
 {
+ 
     Components = new std::vector<Component*>;
     Postion =  new Vector3(x,y,z);
 }
@@ -26,7 +27,7 @@ Entity::~Entity()
 
 void Entity::Start()
 {
-    
+
 }
 
 void Entity::Update()
@@ -35,9 +36,9 @@ void Entity::Update()
     //this->Postion->y = i;
     for (std::vector<Component*>::iterator it = this->Components->begin() ; it != this->Components->end(); ++it)
     {
-        
+
         (*it)->Update();
-        
+
     }
 }
 

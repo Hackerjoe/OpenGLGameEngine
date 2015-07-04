@@ -8,6 +8,9 @@
 
 #include "Entity.h"
 #include "RenderComponent.h"
+#include "PhysxComponent.h"
+#include "PxPhysicsAPI.h"
+using namespace physx;
 class MyEntity : public Entity
 {
 public:
@@ -18,4 +21,5 @@ public:
     virtual void Start();
     
     RenderComponent* MyRenderComp;
+    PhysxComponent* MyPhysxComp;
 };

@@ -12,15 +12,16 @@
 #include "JDMath.h"
 #include "Entity.h"
 
+
 class Entity;
 
 class Component
 {
 public:
-    
+
     Component();
     ~Component();
-        
+
     virtual void Start();
     virtual void Update();
     Entity* Parent;

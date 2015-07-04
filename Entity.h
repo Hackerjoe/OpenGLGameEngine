@@ -29,7 +29,7 @@ public:
     virtual void Update();
     void AddComponent(Component* comp);
     Vector3 *Postion;
-    float i = 0;
+    float Matrix[16];
 private:
     std::vector<Component*> *Components;
 

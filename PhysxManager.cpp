@@ -53,6 +53,16 @@ void PhysxManager::Init()
     
 }
 
+void PhysxManager::SetCurrentScene(physx::PxScene *Scene)
+{
+    CurrentScene = Scene;
+}
+
+PxScene* PhysxManager::GetCurrentScene()
+{
+    return CurrentScene;
+}
+
 void PhysxManager::ShutDown()
 {
     mPhysics->release();
@@ -61,6 +71,7 @@ void PhysxManager::ShutDown()
 
 void PhysxManager::GetPhysxMatrix(PxMat33 m, PxVec3 t, float* mat)
 {
+    
     mat[0] = m.column0[0];
     mat[1] = m.column0[1];
     mat[2] = m.column0[2];

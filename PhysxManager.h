@@ -38,12 +38,16 @@ public:
     PxFoundation *mFoundation = NULL;
     
     void GetPhysxMatrix(PxMat33 m, PxVec3 t, float* mat);
+    PxScene* GetCurrentScene();
+    void SetCurrentScene(PxScene *Scene);
+    
     
 private:
     PhysxManager();
     ~PhysxManager();
     
     static PhysxManager* pInstance;
+    PxScene* CurrentScene;
     
 };
 

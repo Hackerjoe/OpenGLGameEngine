@@ -19,7 +19,6 @@ public:
     ~RenderComponent();
     virtual void Update();
     virtual void Start();
-    float t = 0;
 private:
     void Draw();
 };
