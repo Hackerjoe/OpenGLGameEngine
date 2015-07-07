@@ -11,6 +11,7 @@
 
 #include "Entity.h"
 #include "MyEntity.h"
+#include "MyEntity2.h"
 #include <vector>
 
 #include <PxPhysicsAPI.h>
@@ -66,6 +67,8 @@ private:
     
     
     void StepPhysx();
+    
+    
     
     PxReal PhysxTimeStep = 1.0f/60.0f;
     

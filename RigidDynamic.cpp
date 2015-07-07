@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Joseph Despain. All rights reserved.
 //
 
-#include "PhysxComponent.h"
+#include "RigidDynamic.h"
 
-PhysxComponent::PhysxComponent(PxGeometry Geometry, PxVec3 Position, PxVec3 Scale) : Component()
+RigidDynamic::RigidDynamic(PxGeometry Geometry, PxVec3 Position, PxVec3 Scale) : Component()
 {
     PxVec3 dimensions(0.5,0.5,0.5);
     PxBoxGeometry geometry(dimensions);
@@ -17,11 +17,13 @@ PhysxComponent::PhysxComponent(PxGeometry Geometry, PxVec3 Position, PxVec3 Scal
     mScale = &Scale;
     mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);
     PxReal Density = 1.0;
-    PxTransform transform(PxVec3(0.0f, 2.0f, 0.0f), PxQuat::createIdentity());
+    PxTransform transform(*mPositon, PxQuat::createIdentity());
     
     mActor = PxCreateDynamic(*PhysxManager::Instance()->mPhysics, transform, Geometry, *mMaterial, Density);
     mActor->setAngularDamping(0.75);
     mActor->setLinearVelocity(PxVec3(0,0,0));
+    
+    
     if(PhysxManager::Instance()->GetCurrentScene() != nullptr)
     {
         PhysxManager::Instance()->GetCurrentScene()->addActor(*mActor);
@@ -30,24 +32,46 @@ PhysxComponent::PhysxComponent(PxGeometry Geometry, PxVec3 Position, PxVec3 Scal
     {
         std::cerr << "PxScene has not been created.";
     }
-}
-
-void PhysxComponent::Start()
-{
     
-}
-
-void PhysxComponent::Update()
-{
+    
     PxU32 nShapes = mActor->getNbShapes();
     PxShape** shapes=new PxShape*[nShapes];
     mActor->getShapes(shapes, nShapes);
-    mActor->addTorque(PxVec3(1,1,1));
+    //mActor->addTorque(PxVec3(4,1,1));
+    
+    
+    PxFilterData filterData;
+    filterData.word0 = FilterGroup::eSUBMARINE; // word0 = own ID
+    filterData.word1 = FilterGroup::eSUBMARINE;
     
     
     while (nShapes--)
     {
-        //shapes[nShapes]
+        shapes[nShapes]->setSimulationFilterData(filterData);
+    }
+    
+    delete [] shapes;
+
+}
+
+void RigidDynamic::Start()
+{
+    
+}
+
+void RigidDynamic::Update()
+{
+    PxU32 nShapes = mActor->getNbShapes();
+    PxShape** shapes=new PxShape*[nShapes];
+    mActor->getShapes(shapes, nShapes);
+    //mActor->addTorque(PxVec3(4,1,1));
+    
+    
+    
+    while (nShapes--)
+    {
+        
+    
         PxTransform pT = PxShapeExt::getGlobalPose(*shapes[nShapes], *mActor);
 
         PxMat33 Quat = PxMat33(pT.q);
@@ -62,7 +86,7 @@ void PhysxComponent::Update()
    
 }
 
-void PhysxComponent::Get4x4Matrix(physx::PxMat33 m, physx::PxVec3 t, float *mat)
+void RigidDynamic::Get4x4Matrix(physx::PxMat33 m, physx::PxVec3 t, float *mat)
 {
     mat[0] = m.column0[0];
     mat[1] = m.column0[1];
@@ -85,7 +109,7 @@ void PhysxComponent::Get4x4Matrix(physx::PxMat33 m, physx::PxVec3 t, float *mat)
     mat[15] = 1;
 }
 
-PhysxComponent::~PhysxComponent()
+RigidDynamic::~RigidDynamic()
 {
     
 }

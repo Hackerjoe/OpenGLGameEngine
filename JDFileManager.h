@@ -19,7 +19,7 @@ class JDFileManager
 public:
     static JDFileManager* Instance();
     bool WriteToFile(const char *FileName, std::string Content);
-    std::string* ReadFile(const char *FileName);
+    char* ReadFile(const char *FileName);
 private:
     JDFileManager();
     ~JDFileManager();

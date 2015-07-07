@@ -10,10 +10,11 @@
 #include <iostream>
 #include "HIDManager.h"
 
+
 Program::Program()
 {
-    ScreenWidth = 640;
-    ScreenHeight = 480;
+    ScreenWidth = 1280;
+    ScreenHeight = 720;
     
 }
 
@@ -26,7 +27,7 @@ float Program::testz = 5;
 bool Program::Init(int argc, char** argv)
 {
     
-    
+   
     //Init Glut and a window
     glutInit(&argc, argv);
     //glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
@@ -102,6 +103,14 @@ void Program::render()
     {
         testx += 0.1f;
     }
+    if(HIDManager::GetKey('q'))
+    {
+        testy += 0.1f;
+    }
+    if(HIDManager::GetKey('e'))
+    {
+        testy -= 0.1f;
+    }
     if(HIDManager::GetKey('`'))
     {
         //glutLeaveMainLoop();
@@ -116,24 +125,54 @@ void Program::render()
     glLoadIdentity();
     gluPerspective(45.,(GLfloat) ScreenWidth/(GLfloat) ScreenHeight,0.1, 800.0);
     
-    gluLookAt(testx,testy,testz, 0.0, 0.0, 0.0, 0,1,0);
+    gluLookAt(0,0,-1,
+              0.0, 0.0, 0.0,
+              0,1,0);
+    
+    glTranslatef(testx, testy, testz);
     glMatrixMode(GL_MODELVIEW);
+    
     TheLevel->Update();
     glutSwapBuffers();
-    
+    //std::cout << testx << ";" << testy << ";" << testz << "\n";
     
     glutPostRedisplay();
+    
+    //  Increase frame count
+    Frame++;
+    
+    //  Get the number of milliseconds since glutInit called
+    //  (or first call to glutGet(GLUT ELAPSED TIME)).
+    CurrentTime = glutGet(GLUT_ELAPSED_TIME);
+    
+    //  Calculate time passed
+    int timeInterval = CurrentTime - PrevTime;
+    
+    if(timeInterval > 1000)
+    {
+        //  calculate the number of frames per second
+        fps = Frame / (timeInterval / 1000.0f);
+        char fpsChar[16];
+        sprintf(fpsChar, "FPS: %f",fps);
+        glutSetWindowTitle(fpsChar);
+        
+        //  Set time
+        PrevTime = CurrentTime;
+        
+        //  Reset frame count
+        Frame = 0;
+    }
 }
 
 void Program::reshape(int width, int height)
 {
-    /*glViewport(0, 0, width, height);
+    glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45.,(GLfloat) width/(GLfloat) height,0.1, 800.0);
 
     gluLookAt(0.0,0.0,5.0, 0.0, 0.0, 0.0, 0,1,0);
-    glMatrixMode(GL_MODELVIEW);*/
+    glMatrixMode(GL_MODELVIEW);
 
 }
 

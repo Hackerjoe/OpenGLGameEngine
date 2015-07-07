@@ -10,6 +10,7 @@
 #define OpenGL_JDMath_h
 
 #include "Vector3.h"
+#include "Color.h"
 //TODO Quaternions/Rotations!
 //TODO Maybe wrap it up in a transform...
 //TODO Matrices!

@@ -13,10 +13,34 @@ Level::Level():PxSimulationEventCallback()
 {
     InitPxScene();
     Entities = new std::vector<Entity*>;
-    MyEntity* hi = new MyEntity(0,0,0);
-    AddEntity(hi);
     
-    //AddEntity(new MyEntity(1,0,0));
+    PxVec3 dimensions(0.5,0.5,0.5);
+    PxBoxGeometry geometry(dimensions);
+    Entity* Plane = new Entity(0,0,0);
+    Plane->AddComponent(new RigidStatic(geometry,*new PxVec3(0,-1,0),*new PxVec3(0.5,0.5,0.5)));
+    int j = 0;
+    
+    for (int i=0; i < 1000; i++)
+    {
+        MyEntity* hi = new MyEntity(0,i,0);
+        if(j == 0)
+        {
+            hi->MyRenderComp->setDiffuseColor(hi->MyRenderComp->Program, Color(1, 0, 0, 1));
+        }
+        else if(j == 1)
+        {
+            hi->MyRenderComp->setDiffuseColor(hi->MyRenderComp->Program, Color(0, 0, 1, 1));
+        } else if(j == 2)
+        {
+            hi->MyRenderComp->setDiffuseColor(hi->MyRenderComp->Program, Color(1, 1, 1, 1));
+            j = -1;
+        }
+        j++;
+        
+        AddEntity(hi);
+    }
+    
+    std::cout << Entities->size();
     
 }
 
@@ -46,12 +70,34 @@ void Level::AddEntity(Entity *TheEntity)
 
 void Level::onContact(const physx::PxContactPairHeader &pairHeader, const physx::PxContactPair *pairs, PxU32 nbPairs)
 {
+    //std::cout << "CONTACT BITCHES!!!";
     
 }
 
 void Level::onTrigger(physx::PxTriggerPair *pairs, PxU32 count)
 {
+    //std::cout << "CONTACT BITCHES";
+}
+
+PxFilterFlags LevelFilterShader(PxFilterObjectAttributes attributes0, PxFilterData filterData0,
+                                PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+                                PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
+{
+    // let triggers through
+    if(PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
+    {
+        pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
+        return PxFilterFlag::eDEFAULT;
+    }
+    // generate contacts for all that were not filtered above
+    pairFlags = PxPairFlag::eCONTACT_DEFAULT;
     
+    // trigger the contact callback for pairs (A,B) where
+    // the filtermask of A contains the ID of B and vice versa.
+    if((filterData0.word0 & filterData1.word1) && (filterData1.word0 & filterData0.word1))
+        pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
+    
+    return PxFilterFlag::eDEFAULT;
 }
 
 void Level::InitPxScene()
@@ -64,16 +110,17 @@ void Level::InitPxScene()
     if(!sceneDesc.cpuDispatcher)
     {
         
-        PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(1);
+        PxDefaultCpuDispatcher* mCpuDispatcher = PxDefaultCpuDispatcherCreate(4);
         
         if(!mCpuDispatcher)
             std::cerr <<"PxDefaultCpuDispatcherCreate failed!"<<std::endl;
         
         sceneDesc.cpuDispatcher = mCpuDispatcher;
     }
+
     
-    if(!sceneDesc.filterShader)
-        sceneDesc.filterShader  = gDefaultFilterShader;
+    sceneDesc.filterShader  = LevelFilterShader;
+    sceneDesc.simulationEventCallback	= this;
     
     mScene = PhysxManager::Instance()->mPhysics->createScene(sceneDesc);
     
@@ -89,11 +136,9 @@ void Level::InitPxScene()
     mScene->setVisualizationParameter(PxVisualizationParameter::eSCALE,     1.0);
     mScene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
     
-
-    
-    
-    
 }
+
+
 
 void Level::StepPhysx()
 {

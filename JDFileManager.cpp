@@ -47,25 +47,30 @@ bool JDFileManager::WriteToFile(const char *FileName, std::string Content)
     
 }
 
-std::string* JDFileManager::ReadFile(const char *FileName)
+char* JDFileManager::ReadFile(const char *FileName)
 {
-    std::string content;
-    std::string line;
-    std::ifstream myfile (FileName);
-    if (myfile.is_open())
-    {
-        while ( getline (myfile,line) )
-        {
-            content = content + line;
-            std::cout << line << '\n';
-        }
-        return new std::string(content);
-        myfile.close();
-    }
+    FILE *fp;
+    char *content = NULL;
+    int count = 0;
     
-    else
+    if (FileName != NULL)
     {
-        std::cout << "Unable to open file";
-        return NULL;
+        fp = fopen(FileName, "rt");
+        
+        
+        if (fp != NULL)
+        {
+            fseek(fp, 0, SEEK_END);
+            count = ftell(fp);
+            rewind(fp);
+            if (count > 0) {
+                content = (char *)malloc(sizeof(char) * (count+1));
+                count = fread(content,sizeof(char),count,fp);
+                content[count] = '\0';
+            }
+            fclose(fp);
+        }
+        
     }
+    return content;
 }

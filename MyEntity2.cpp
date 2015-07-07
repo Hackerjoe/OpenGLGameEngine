@@ -1,18 +1,21 @@
 //
-//  MyEntity.cpp
+//  MyEntity2.cpp
 //  OpenGL
 //
-//  Created by Joseph Despain on 5/24/15.
+//  Created by Joseph Despain on 7/5/15.
 //  Copyright (c) 2015 Joseph Despain. All rights reserved.
 //
 
+#include "MyEntity2.h"
+
+
 #include "MyEntity.h"
 
-MyEntity::MyEntity(float x,float y,float z)
-    :Entity(x,y,z)
+MyEntity2::MyEntity2(float x,float y,float z)
+:Entity(x,y,z)
 {
     std::string test;
-    MyRenderComp = new RenderComponent("simple.vert","simple.frag");
+    MyRenderComp = new RenderComponent("simple2.vert","simple2.frag");
     PxVec3 dimensions(0.5,0.5,0.5);
     PxBoxGeometry geometry(dimensions);
     //PxMaterial* mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);//phymPhysics->createMaterial(0.5,0.5,0.5);
@@ -23,19 +26,18 @@ MyEntity::MyEntity(float x,float y,float z)
     
 }
 
-MyEntity::~MyEntity()
+MyEntity2::~MyEntity2()
 {
     
 }
 
-void MyEntity::Start()
+void MyEntity2::Start()
 {
     
 }
 
-void MyEntity::Update()
+void MyEntity2::Update()
 {
     //Super Update
     Entity::Update();
 }
-

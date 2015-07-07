@@ -16,7 +16,19 @@
 
 using namespace physx;
 
-class PhysxComponent : public Component
+struct FilterGroup
+{
+    enum Enum
+    {
+        eSUBMARINE     = (1 << 0),
+        eMINE_HEAD     = (1 << 1),
+        eMINE_LINK     = (1 << 2),
+        eCRAB          = (1 << 3),
+        eHEIGHTFIELD   = (1 << 4),
+    };
+};
+
+class RigidDynamic : public Component
 {
 public:
     PxMaterial*         mMaterial;
@@ -28,8 +40,8 @@ public:
     virtual void Update();
     
     
-    PhysxComponent(PxGeometry Geometry, PxVec3 Position, PxVec3 Scale);
-    ~PhysxComponent();
+    RigidDynamic(PxGeometry Geometry, PxVec3 Position, PxVec3 Scale);
+    ~RigidDynamic();
     
 private:
     

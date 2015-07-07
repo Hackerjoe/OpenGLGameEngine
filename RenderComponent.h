@@ -10,17 +10,31 @@
 
 #include "Component.h"
 #include <GL/freeglut.h>
+#include <OpenGL/OpenGL.h>
 #include "HIDManager.h"
+#include "JDFileManager.h"
+#include "JDMath.h"
 
 class RenderComponent : public Component
 {
 public:
-    RenderComponent();
+    RenderComponent(std::string VetexShaderFileLoc,std::string FragmentShaderFileLoc);
     ~RenderComponent();
     virtual void Update();
     virtual void Start();
+    void setShaders(std::string vert,std::string frag);
+    void setDiffuseColor(GLuint programID, Color color);
+    GLuint Program;
 private:
     void Draw();
+    
+    void printShaderInfoLog(GLuint obj);
+    void printProgramInfoLog(GLuint obj);
+    GLuint Vertex;
+    GLuint Fragment;
+    //GLuint Program;
+    
+    
 };
 
 

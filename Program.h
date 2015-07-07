@@ -45,7 +45,10 @@ public:
     static float testx;
     static float testy;
     static float testz;
-    
+    int Frame;
+    float CurrentTime;
+    float PrevTime;
+    float fps;
     
     
 private:
