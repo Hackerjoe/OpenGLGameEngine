@@ -38,14 +38,14 @@ public:
     
     virtual void Start();
     virtual void Update();
-    
+    PxRigidDynamic*     mActor;
     
     RigidDynamic(PxGeometry Geometry, PxVec3 Position, PxVec3 Scale);
     ~RigidDynamic();
     
 private:
     
-    PxRigidDynamic*     mActor;
+    
     inline void Get4x4Matrix(PxMat33 m, PxVec3 t, float* mat);
 };
 

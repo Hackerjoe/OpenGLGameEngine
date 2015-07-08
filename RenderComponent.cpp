@@ -35,7 +35,7 @@ void RenderComponent::Draw()
     
     //t+=1;
     glPushMatrix();
-    
+    glEnable(GL_TEXTURE_2D);
     //glLinkProgram(this->Program);
     glUseProgram(this->Program);
     //glTranslatef(Parent->Postion->x, Parent->Postion->y, Parent->Postion->z);
@@ -45,8 +45,69 @@ void RenderComponent::Draw()
     //float m[16];
     //glGetFloatv (GL_MODELVIEW_MATRIX, m);
     
-    glutSolidOctahedron();
+    //glutSolidOctahedron();
     //glDisable(GL_TEXTURE_2D);
+    
+    
+    
+    GLfloat g_vertex_buffer_data[] = {
+        -1.0f,-1.0f,-1.0f, // triangle 1 : begin
+        -1.0f,-1.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f, // triangle 1 : end
+        
+        1.0f, 1.0f,-1.0f, // triangle 2 : begin
+        -1.0f,-1.0f,-1.0f,
+        -1.0f, 1.0f,-1.0f, // triangle 2 : end
+        
+        1.0f,-1.0f, 1.0f,
+        -1.0f,-1.0f,-1.0f,
+        1.0f,-1.0f,-1.0f,
+        
+        1.0f, 1.0f,-1.0f,
+        1.0f,-1.0f,-1.0f,
+        -1.0f,-1.0f,-1.0f,
+        
+        -1.0f,-1.0f,-1.0f,
+        -1.0f, 1.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,
+        
+        1.0f,-1.0f, 1.0f,
+        -1.0f,-1.0f, 1.0f,
+        -1.0f,-1.0f,-1.0f,
+        
+        -1.0f, 1.0f, 1.0f,
+        -1.0f,-1.0f, 1.0f,
+        1.0f,-1.0f, 1.0f,
+        
+        1.0f, 1.0f, 1.0f,
+        1.0f,-1.0f,-1.0f,
+        1.0f, 1.0f,-1.0f,
+        
+        1.0f,-1.0f,-1.0f,
+        1.0f, 1.0f, 1.0f,
+        1.0f,-1.0f, 1.0f,
+        
+        1.0f, 1.0f, 1.0f,
+        1.0f, 1.0f,-1.0f,
+        -1.0f, 1.0f,-1.0f,
+        
+        1.0f, 1.0f, 1.0f,
+        -1.0f, 1.0f,-1.0f,
+        -1.0f, 1.0f, 1.0f,
+        
+        1.0f, 1.0f, 1.0f,
+        -1.0f, 1.0f, 1.0f,
+        1.0f,-1.0f, 1.0f
+    };
+    
+    glScalef(.5, .5, .5);
+    //glEnableClientState(GL_VERTEX_ARRAY);
+    //glVertexPointer(3, GL_FLOAT, 0, g_vertex_buffer_data);
+    //glDrawArrays(GL_TRIANGLES, 0, 3*12);
+    //glDisable(GL_VERTEX_ARRAY);
+    
+    glutSolidTeapot(1);
+    glDisable(GL_TEXTURE_2D);
     glPopMatrix();
     
 }
@@ -147,5 +208,17 @@ void RenderComponent::setDiffuseColor(GLuint programID, Color color)
     GLuint diffuseLoc = glGetUniformLocation(programID, "Color");
     
     glUniform4f(diffuseLoc,color.r,color.g,color.b,color.a);
+}
+
+void RenderComponent::setDiffuseTexture(GLuint programID, GLuint texture)
+{
+    GLuint loc = glGetUniformLocation(programID,"texture1");
+    std::cout << "LOC" << loc << std::endl;
+    
+    glUniform1i(loc,0);
+    
+    glActiveTexture(GL_TEXTURE0 + 0);
+    
+    glBindTexture(GL_TEXTURE_2D, texture);
 }
 

@@ -14,29 +14,15 @@ Level::Level():PxSimulationEventCallback()
     InitPxScene();
     Entities = new std::vector<Entity*>;
     
-    PxVec3 dimensions(0.5,0.5,0.5);
+    PxVec3 dimensions(1,1,1);
     PxBoxGeometry geometry(dimensions);
     Entity* Plane = new Entity(0,0,0);
     Plane->AddComponent(new RigidStatic(geometry,*new PxVec3(0,-1,0),*new PxVec3(0.5,0.5,0.5)));
-    int j = 0;
     
-    for (int i=0; i < 1000; i++)
+    for (int i=0; i < 5; i++)
     {
-        MyEntity* hi = new MyEntity(0,i,0);
-        if(j == 0)
-        {
-            hi->MyRenderComp->setDiffuseColor(hi->MyRenderComp->Program, Color(1, 0, 0, 1));
-        }
-        else if(j == 1)
-        {
-            hi->MyRenderComp->setDiffuseColor(hi->MyRenderComp->Program, Color(0, 0, 1, 1));
-        } else if(j == 2)
-        {
-            hi->MyRenderComp->setDiffuseColor(hi->MyRenderComp->Program, Color(1, 1, 1, 1));
-            j = -1;
-        }
-        j++;
-        
+        MyEntity2* hi = new MyEntity2(i,i,0);
+                
         AddEntity(hi);
     }
     

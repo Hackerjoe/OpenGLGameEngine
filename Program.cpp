@@ -45,11 +45,7 @@ bool Program::Init(int argc, char** argv)
     gluLookAt(0.0,0.0,5.0, 0.0, 0.0, 0.0, 0,1,0);
     
     //Init devil for image reading
-    /*ilutRenderer(ILUT_OPENGL);
-    ilInit();
-    iluInit();
-    ilutInit();
-    ilutRenderer(ILUT_OPENGL);*/
+    ImageLibManager::Instance()->Init();
     
     //Setup glut callbacks
     glutReshapeFunc(reshape);

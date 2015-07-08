@@ -15,9 +15,7 @@
 #include <stdio.h>
 //#include <AL/alut.h>
 #include <stdlib.h>
-//#include <IL/il.h>
-//#include <IL/ilu.h>
-//#include <IL/ilut.h>
+#include "ImageLibManager.h"
 #include <vector>
 #include "Entity.h"
 #include "Level.h"

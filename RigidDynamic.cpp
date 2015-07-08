@@ -16,7 +16,7 @@ RigidDynamic::RigidDynamic(PxGeometry Geometry, PxVec3 Position, PxVec3 Scale) :
     mPositon = &Position;
     mScale = &Scale;
     mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);
-    PxReal Density = 1.0;
+    PxReal Density = 10.0;
     PxTransform transform(*mPositon, PxQuat::createIdentity());
     
     mActor = PxCreateDynamic(*PhysxManager::Instance()->mPhysics, transform, Geometry, *mMaterial, Density);

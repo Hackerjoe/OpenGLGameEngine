@@ -14,6 +14,8 @@
 #include "RigidDynamic.h"
 #include "RigidStatic.h"
 #include "PxPhysicsAPI.h"
+#include "ImageLibManager.h"
+#include "HIDManager.h"
 using namespace physx;
 class MyEntity2 : public Entity
 {

@@ -20,11 +20,15 @@ class RenderComponent : public Component
 public:
     RenderComponent(std::string VetexShaderFileLoc,std::string FragmentShaderFileLoc);
     ~RenderComponent();
+    
     virtual void Update();
     virtual void Start();
+    
     void setShaders(std::string vert,std::string frag);
     void setDiffuseColor(GLuint programID, Color color);
+    void setDiffuseTexture(GLuint programID, GLuint texture);
     GLuint Program;
+    
 private:
     void Draw();
     
@@ -32,7 +36,7 @@ private:
     void printProgramInfoLog(GLuint obj);
     GLuint Vertex;
     GLuint Fragment;
-    //GLuint Program;
+
     
     
 };
