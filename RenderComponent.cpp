@@ -27,7 +27,7 @@ void RenderComponent::Update()
 }
 void RenderComponent::Start()
 {
-    
+ 
 }
 
 void RenderComponent::Draw()

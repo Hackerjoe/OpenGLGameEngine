@@ -13,6 +13,7 @@ MyEntity::MyEntity(float x,float y,float z)
 {
     std::string test;
     MyRenderComp = new RenderComponent("simple.vert","simple.frag");
+    MyRenderComp->setDiffuseColor(MyRenderComp->Program, *new Color(0,1,0,1));
     PxVec3 dimensions(0.5,0.5,0.5);
     PxBoxGeometry geometry(dimensions);
     //PxMaterial* mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);//phymPhysics->createMaterial(0.5,0.5,0.5);

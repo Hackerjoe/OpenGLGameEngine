@@ -8,7 +8,7 @@
 
 #include "HIDManager.h"
 
-HIDManager* HIDManager::pInstance = NULL;
+HIDManager* HIDManager::pInstance = nullptr;
 bool* HIDManager::KeyStates = new bool[256];
 
 HIDManager::HIDManager()

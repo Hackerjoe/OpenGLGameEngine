@@ -9,7 +9,7 @@
 #ifndef __OpenGL__HIDManager__
 #define __OpenGL__HIDManager__
 
-#include <GL/freeglut.h>
+
 
 class HIDManager
 {

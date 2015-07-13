@@ -42,7 +42,7 @@ bool Program::Init(int argc, char** argv)
     
     glfwMakeContextCurrent(window);
 
-    //glutGameModeString("1920x1200:32");
+    
     glEnable(GL_TEXTURE_2D);
     glClearColor (0.0, 1.0, 1.0, 1.0);
     glEnable(GL_DEPTH_TEST);

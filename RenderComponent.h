@@ -9,8 +9,10 @@
 #define RENDERNCOMP_H
 
 #include "Component.h"
-#include <GL/freeglut.h>
+#include <GL/glew.h>
 #include <OpenGL/OpenGL.h>
+#include <GLFW/glfw3.h>
+
 #include "HIDManager.h"
 #include "JDFileManager.h"
 #include "JDMath.h"
