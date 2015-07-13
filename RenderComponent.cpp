@@ -101,12 +101,13 @@ void RenderComponent::Draw()
     };
     
     glScalef(.5, .5, .5);
-    //glEnableClientState(GL_VERTEX_ARRAY);
-    //glVertexPointer(3, GL_FLOAT, 0, g_vertex_buffer_data);
-    //glDrawArrays(GL_TRIANGLES, 0, 3*12);
-    //glDisable(GL_VERTEX_ARRAY);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, 0, g_vertex_buffer_data);
+    glDrawArrays(GL_TRIANGLES, 0, 3*12);
+    glDisable(GL_VERTEX_ARRAY);
+    //glutWireTeapot(1);
     
-    glutSolidTeapot(1);
+
     glDisable(GL_TEXTURE_2D);
     glPopMatrix();
     

@@ -37,5 +37,13 @@ void MyEntity::Update()
 {
     //Super Update
     Entity::Update();
+    if(HIDManager::Instance()->GetKey('f'))
+    {
+        MyPhysxComp->mActor->addForce(*new PxVec3(0,100,0));
+    }
+    if(HIDManager::Instance()->GetKey('g'))
+    {
+        MyPhysxComp->mActor->addTorque(*new PxVec3(0,0,10));
+    }
 }
 

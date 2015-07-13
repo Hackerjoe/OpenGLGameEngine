@@ -11,7 +11,6 @@
 
 #include <iostream>
 #include "GL/glew.h"
-#include <GL/freeglut.h>
 #include <stdio.h>
 //#include <AL/alut.h>
 #include <stdlib.h>
@@ -19,6 +18,7 @@
 #include <vector>
 #include "Entity.h"
 #include "Level.h"
+#include <GLFW/glfw3.h>
 
 
 #include "PhysxManager.h"
@@ -37,16 +37,24 @@ public:
     
     bool Init(int argc, char** argv);
     void render();
+    void mainLoop();
+    
     static void reshape(int width, int height);
+    
     static void keyb(unsigned char key, int x, int y);
+    
     void SetLevel(Level* level);
+    
     static float testx;
     static float testy;
     static float testz;
+    
     int Frame;
     float CurrentTime;
     float PrevTime;
     float fps;
+    
+     GLFWwindow* window;
     
     
 private:

@@ -28,7 +28,7 @@ public:
     
     RenderComponent* MyRenderComp;
     RigidDynamic* MyPhysxComp;
-    RigidStatic* Plane;
+    
 };
 
 #endif /* defined(__OpenGL__MyEntity2__) */

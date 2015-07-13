@@ -6,15 +6,19 @@
 //  Copyright (c) 2015 Joseph Despain. All rights reserved.
 //
 
+
+
 #include "Program.h"
 #include <iostream>
 #include "HIDManager.h"
 
 
+
+
 Program::Program()
 {
-    ScreenWidth = 1280;
-    ScreenHeight = 720;
+    ScreenWidth = 1920;
+    ScreenHeight = 1080;
     
 }
 
@@ -29,11 +33,15 @@ bool Program::Init(int argc, char** argv)
     
    
     //Init Glut and a window
-    glutInit(&argc, argv);
-    //glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
-    glutInitWindowSize(ScreenWidth,ScreenHeight);
-    glutCreateWindow("My Engine");
+   
+    
+    if (!glfwInit())
+        return false;
+    
+    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    
+    glfwMakeContextCurrent(window);
+
     //glutGameModeString("1920x1200:32");
     glEnable(GL_TEXTURE_2D);
     glClearColor (0.0, 1.0, 1.0, 1.0);
@@ -48,9 +56,15 @@ bool Program::Init(int argc, char** argv)
     ImageLibManager::Instance()->Init();
     
     //Setup glut callbacks
-    glutReshapeFunc(reshape);
-    glutKeyboardFunc(HIDManager::Instance()->KeyBoardFunc);
-    glutKeyboardUpFunc(HIDManager::Instance()->KeyBoardUpFunc);
+    //glutReshapeFunc(reshape);
+
+    
+    GLint test;
+    
+    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS,&test);
+    
+    std::cout << test << "***************************" << '\n';
+    
     
     
     printf("\n%s\n", glGetString(GL_VERSION));
@@ -76,45 +90,27 @@ bool Program::Init(int argc, char** argv)
     
     TheLevel = new Level();
     
+    mainLoop();
         
     return true;
 }
 
+void Program::mainLoop()
+{
+    while (!glfwWindowShouldClose(window))
+    {
+        render();
+        
+        glfwSwapBuffers(window);
+        
+        glfwPollEvents();
+    }
+}
 
 void Program::render()
 {
-    if(HIDManager::GetKey('w'))
-    {
-        testz -= 0.1f;
-    }
-    if(HIDManager::GetKey('s'))
-    {
-        testz += 0.1f;
-    }
-    if(HIDManager::GetKey('a'))
-    {
-        testx -= 0.1f;
-    }
-    if(HIDManager::GetKey('d'))
-    {
-        testx += 0.1f;
-    }
-    if(HIDManager::GetKey('q'))
-    {
-        testy += 0.1f;
-    }
-    if(HIDManager::GetKey('e'))
-    {
-        testy -= 0.1f;
-    }
-    if(HIDManager::GetKey('`'))
-    {
-        //glutLeaveMainLoop();
-        glutFullScreen();
-        
-    }
     
-   
+    testz+=.01;
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     //glViewport(0, 0, ScreenWidth, ScreenHeight);
     glMatrixMode(GL_PROJECTION);
@@ -127,37 +123,11 @@ void Program::render()
     
     glTranslatef(testx, testy, testz);
     glMatrixMode(GL_MODELVIEW);
-    
     TheLevel->Update();
-    glutSwapBuffers();
-    //std::cout << testx << ";" << testy << ";" << testz << "\n";
+  
     
-    glutPostRedisplay();
     
-    //  Increase frame count
-    Frame++;
     
-    //  Get the number of milliseconds since glutInit called
-    //  (or first call to glutGet(GLUT ELAPSED TIME)).
-    CurrentTime = glutGet(GLUT_ELAPSED_TIME);
-    
-    //  Calculate time passed
-    int timeInterval = CurrentTime - PrevTime;
-    
-    if(timeInterval > 1000)
-    {
-        //  calculate the number of frames per second
-        fps = Frame / (timeInterval / 1000.0f);
-        char fpsChar[16];
-        sprintf(fpsChar, "FPS: %f",fps);
-        glutSetWindowTitle(fpsChar);
-        
-        //  Set time
-        PrevTime = CurrentTime;
-        
-        //  Reset frame count
-        Frame = 0;
-    }
 }
 
 void Program::reshape(int width, int height)
