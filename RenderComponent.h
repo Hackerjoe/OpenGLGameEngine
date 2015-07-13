@@ -10,8 +10,8 @@
 
 #include "Component.h"
 #include <GL/glew.h>
-#include <OpenGL/OpenGL.h>
-#include <GLFW/glfw3.h>
+//#include <OpenGL/OpenGL.h>
+//#include <GLFW/glfw3.h>
 
 #include "HIDManager.h"
 #include "JDFileManager.h"

@@ -17,8 +17,8 @@
 
 Program::Program()
 {
-    ScreenWidth = 1920;
-    ScreenHeight = 1080;
+    ScreenWidth = 1280;
+    ScreenHeight = 720;
     
 }
 
@@ -38,32 +38,23 @@ bool Program::Init(int argc, char** argv)
     if (!glfwInit())
         return false;
     
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(ScreenWidth, ScreenHeight, "Hello World", NULL, NULL);
+    
     
     glfwMakeContextCurrent(window);
 
     
+
     glEnable(GL_TEXTURE_2D);
     glClearColor (0.0, 1.0, 1.0, 1.0);
     glEnable(GL_DEPTH_TEST);
-    glViewport(0, 0, 640, 480  );
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.,(GLfloat) ScreenHeight/(GLfloat) ScreenWidth,0.1, 800.0);
-    gluLookAt(0.0,0.0,5.0, 0.0, 0.0, 0.0, 0,1,0);
+
     
     //Init devil for image reading
     ImageLibManager::Instance()->Init();
     
     //Setup glut callbacks
     //glutReshapeFunc(reshape);
-
-    
-    GLint test;
-    
-    glGetIntegerv(GL_MAX_TEXTURE_IMAGE_UNITS,&test);
-    
-    std::cout << test << "***************************" << '\n';
     
     
     
@@ -89,8 +80,10 @@ bool Program::Init(int argc, char** argv)
     PhysxManager::Instance()->Init();
     
     TheLevel = new Level();
+
     
     mainLoop();
+    
         
     return true;
 }
@@ -110,12 +103,18 @@ void Program::mainLoop()
 void Program::render()
 {
     
-    testz+=.01;
+
+    
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //glViewport(0, 0, ScreenWidth, ScreenHeight);
     glMatrixMode(GL_PROJECTION);
+    
+    int width, height;
+    glfwGetFramebufferSize(window, &width, &height);
+    glViewport(0, 0, width, height);
+    
     glLoadIdentity();
-    gluPerspective(45.,(GLfloat) ScreenWidth/(GLfloat) ScreenHeight,0.1, 800.0);
+    gluPerspective(45.,(GLfloat) width/(GLfloat) height,0.1, 800.0);
     
     gluLookAt(0,0,-1,
               0.0, 0.0, 0.0,
@@ -130,15 +129,16 @@ void Program::render()
     
 }
 
-void Program::reshape(int width, int height)
+void Program::reshape(GLFWwindow* window, int width, int height)
 {
+    /*
     glViewport(0, 0, width, height);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45.,(GLfloat) width/(GLfloat) height,0.1, 800.0);
 
     gluLookAt(0.0,0.0,5.0, 0.0, 0.0, 0.0, 0,1,0);
-    glMatrixMode(GL_MODELVIEW);
+    glMatrixMode(GL_MODELVIEW)*/
 
 }
 
@@ -149,5 +149,5 @@ void Program::SetLevel(Level* level)
 
 Program::~Program()
 {
-    //glutLeaveMainLoop();
+    
 }

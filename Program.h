@@ -39,7 +39,7 @@ public:
     void render();
     void mainLoop();
     
-    static void reshape(int width, int height);
+    static void reshape(GLFWwindow* window, int width, int height);
     
     static void keyb(unsigned char key, int x, int y);
     
