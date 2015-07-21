@@ -18,14 +18,18 @@ Level::Level():PxSimulationEventCallback()
     PxBoxGeometry geometry(dimensions);
     Entity* Plane = new Entity(0,0,0);
     Plane->AddComponent(new RigidStatic(geometry,*new PxVec3(0,-1,0),*new PxVec3(0.5,0.5,0.5)));
-
-    for (int i=0; i < 200; i++)
-    {
-        MyEntity* hi = new MyEntity(0,i,0);
+    //AddEntity(Plane);
+    
+    MyEntity* hi = new MyEntity(0,1,0);
+    AddEntity(hi);
+    
+    
+    
+    
        
                 
-        AddEntity(hi);
-    }
+    
+  
     
     
     

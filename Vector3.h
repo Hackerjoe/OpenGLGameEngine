@@ -18,6 +18,7 @@ public:
     float z;
     
     Vector3(float x,float y,float z);
+    Vector3();
     
     bool operator==(const Vector3& other)
     {

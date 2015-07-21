@@ -9,6 +9,8 @@
 #include "RenderComponent.h"
 #include <math.h>
 
+
+
 RenderComponent::RenderComponent(std::string VetexShaderFileLoc,std::string FragmentShaderFileLoc):Component()
 {
     if(!VetexShaderFileLoc.empty() && !FragmentShaderFileLoc.empty())
@@ -16,41 +18,9 @@ RenderComponent::RenderComponent(std::string VetexShaderFileLoc,std::string Frag
         setShaders(VetexShaderFileLoc, FragmentShaderFileLoc);
         
     }
-}
-RenderComponent::~RenderComponent()
-{
+                                // ID of VBO
     
-}
-void RenderComponent::Update()
-{
-    Draw();
-}
-void RenderComponent::Start()
-{
- 
-}
-
-void RenderComponent::Draw()
-{
-    
-    //t+=1;
-    glPushMatrix();
-    glEnable(GL_TEXTURE_2D);
-    //glLinkProgram(this->Program);
-    glUseProgram(this->Program);
-    //glTranslatef(Parent->Postion->x, Parent->Postion->y, Parent->Postion->z);
-    //glRotatef(t, 1, 0, 0);
-    glMultMatrixf(Parent->Matrix);
-   // glRotatef(20, 1, 0,0);
-    //float m[16];
-    //glGetFloatv (GL_MODELVIEW_MATRIX, m);
-    
-    //glutSolidOctahedron();
-    //glDisable(GL_TEXTURE_2D);
-    
-    
-    
-    GLfloat g_vertex_buffer_data[] = {
+    GLfloat vertices[] = {
         -1.0f,-1.0f,-1.0f, // triangle 1 : begin
         -1.0f,-1.0f, 1.0f,
         -1.0f, 1.0f, 1.0f, // triangle 1 : end
@@ -100,16 +70,63 @@ void RenderComponent::Draw()
         1.0f,-1.0f, 1.0f
     };
     
-    glScalef(.5, .5, .5);
-    glEnableClientState(GL_VERTEX_ARRAY);
-    glVertexPointer(3, GL_FLOAT, 0, g_vertex_buffer_data);
-    glDrawArrays(GL_TRIANGLES, 0, 3*12);
-    glDisable(GL_VERTEX_ARRAY);
-    //glutWireTeapot(1);
+ 
+    
     
 
-    glDisable(GL_TEXTURE_2D);
-    glPopMatrix();
+    
+   /* GLfloat vertices[] = {
+        -0.5f, -0.5f, 0.0f, // Left
+        0.5f, -0.5f, 0.0f, // Right
+        0.0f,  0.5f, 0.0f  // Top
+    };*/
+    
+    //GLuint VAO;
+    //GLuint VBO, VAO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    // Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
+    glBindVertexArray(VAO);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
+    
+    glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
+
+    
+
+    
+}
+RenderComponent::~RenderComponent()
+{
+    
+}
+void RenderComponent::Update()
+{
+    Draw();
+}
+void RenderComponent::Start()
+{
+ 
+}
+
+void RenderComponent::Draw()
+{
+    //glScalef(.5, .5, .5);
+    
+    glUseProgram(shaderProgram);
+    GLint transformLoc = glGetUniformLocation(shaderProgram, "transform");
+    glUniformMatrix4fv(transformLoc, 1, GL_FALSE, Parent->Matrix);
+    
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3*12);
+    glBindVertexArray(0);
+    
     
 }
 
@@ -125,8 +142,8 @@ void RenderComponent::setShaders(std::string vert,std::string frag)
         char *vs = NULL, *fs = NULL;
         
         
-        this->Vertex = glCreateShader(GL_VERTEX_SHADER);
-        this->Fragment = glCreateShader(GL_FRAGMENT_SHADER);
+        this->vertexShader = glCreateShader(GL_VERTEX_SHADER);
+        this->fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
         
         
         
@@ -137,33 +154,37 @@ void RenderComponent::setShaders(std::string vert,std::string frag)
         const char * vv = vs;
         
         
-        glShaderSource(this->Vertex, 1, &vv, NULL);
-        glShaderSource(this->Fragment, 1, &ff, NULL);
+        glShaderSource(this->vertexShader, 1, &vv, NULL);
+        glShaderSource(this->fragmentShader, 1, &ff, NULL);
         
         free(vs);
         free(fs);
         
-        glCompileShader(this->Vertex);
-        glCompileShader(this->Fragment);
+        glCompileShader(this->vertexShader);
+        glCompileShader(this->fragmentShader);
+        printf("Vertex\n");
+        printShaderInfoLog(this->vertexShader);
+        printf("Fragment\n");
+        printShaderInfoLog(this->fragmentShader);
         
-        this->Program = glCreateProgram();
+        this->shaderProgram = glCreateProgram();
         
-        glAttachShader(this->Program,this->Fragment);
-        glAttachShader(this->Program,this->Vertex);
+        glAttachShader(this->shaderProgram,this->fragmentShader);
+        glAttachShader(this->shaderProgram,this->vertexShader);
         
-        glProgramParameteriEXT(this->Program,GL_GEOMETRY_INPUT_TYPE_EXT,GL_LINES);
-        glProgramParameteriEXT(this->Program,GL_GEOMETRY_OUTPUT_TYPE_EXT,GL_LINE_STRIP);
+        //glProgramParameteriEXT(this->Program,GL_GEOMETRY_INPUT_TYPE_EXT,GL_LINES);
+        //glProgramParameteriEXT(this->Program,GL_GEOMETRY_OUTPUT_TYPE_EXT,GL_LINE_STRIP);
         
-        int temp;
-        glGetIntegerv(GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT,&temp);
-        glProgramParameteriEXT(this->Program,GL_GEOMETRY_VERTICES_OUT_EXT,temp);
+        //int temp;
+        //glGetIntegerv(GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT,&temp);
+        ///glProgramParameteriEXT(this->Program,GL_GEOMETRY_VERTICES_OUT_EXT,temp);
         
-        glLinkProgram(this->Program);
-        glUseProgram(this->Program);
+        glLinkProgram(this->shaderProgram);
+        //glUseProgram(this->Program);
+        printProgramInfoLog(this->shaderProgram);
         
-        printShaderInfoLog(this->Vertex);
-        printShaderInfoLog(this->Fragment);
-        printProgramInfoLog(this->Program);
+        glDeleteShader(this->vertexShader);
+        glDeleteShader(this->fragmentShader);
     }else{
         printf("Shaders are NULL");
     }

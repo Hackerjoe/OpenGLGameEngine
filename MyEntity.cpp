@@ -11,9 +11,9 @@
 MyEntity::MyEntity(float x,float y,float z)
     :Entity(x,y,z)
 {
-    std::string test;
+    
     MyRenderComp = new RenderComponent("simple.vert","simple.frag");
-    MyRenderComp->setDiffuseColor(MyRenderComp->Program, *new Color(0,1,0,1));
+    //MyRenderComp->setDiffuseColor(MyRenderComp->Program, *new Color(0,1,0,1));
     PxVec3 dimensions(0.5,0.5,0.5);
     PxBoxGeometry geometry(dimensions);
     //PxMaterial* mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);//phymPhysics->createMaterial(0.5,0.5,0.5);
@@ -21,6 +21,8 @@ MyEntity::MyEntity(float x,float y,float z)
     //Plane = new RigidStatic(geometry,*new PxVec3(0,0,0),*new PxVec3(0.5,0.5,0.5));;
     this->AddComponent(MyRenderComp);
     this->AddComponent(MyPhysxComp);
+    //this->AddComponent(new TestInstComp());
+
     
 }
 
@@ -38,13 +40,13 @@ void MyEntity::Update()
 {
     //Super Update
     Entity::Update();
-    if(HIDManager::Instance()->GetKey('f'))
+   /* if(HIDManager::Instance()->GetKey('f'))
     {
         MyPhysxComp->mActor->addForce(*new PxVec3(0,100,0));
     }
     if(HIDManager::Instance()->GetKey('g'))
     {
         MyPhysxComp->mActor->addTorque(*new PxVec3(0,0,10));
-    }
+    }*/
 }
 

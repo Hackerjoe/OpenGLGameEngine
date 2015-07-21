@@ -10,7 +10,9 @@
 #define PROGRAM_H
 
 #include <iostream>
-#include "GL/glew.h"
+#define GLEW_STATIC
+#include <GL/glew.h>
+
 #include <stdio.h>
 //#include <AL/alut.h>
 #include <stdlib.h>
@@ -18,6 +20,8 @@
 #include <vector>
 #include "Entity.h"
 #include "Level.h"
+#include <glm/glm.hpp>
+
 #include <GLFW/glfw3.h>
 
 
@@ -27,10 +31,10 @@ class Program
 {
 public:
     
-    int ScreenWidth;
-    int ScreenHeight;
+    GLuint ScreenWidth;
+    GLuint ScreenHeight;
     Level* TheLevel;
-    
+    glm::vec3 hu;
     
     Program();
     ~Program();

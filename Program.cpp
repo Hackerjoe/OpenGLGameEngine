@@ -17,8 +17,8 @@
 
 Program::Program()
 {
-    ScreenWidth = 1280;
-    ScreenHeight = 720;
+    ScreenWidth = 800;
+    ScreenHeight = 600;
     
 }
 
@@ -32,55 +32,44 @@ bool Program::Init(int argc, char** argv)
 {
     
    
-    //Init Glut and a window
    
     
     if (!glfwInit())
         return false;
     
-    window = glfwCreateWindow(ScreenWidth, ScreenHeight, "Hello World", NULL, NULL);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     
     
+    
+    window = glfwCreateWindow(ScreenWidth, ScreenHeight, "Hello World", nullptr, nullptr);
     glfwMakeContextCurrent(window);
 
     
 
-    glEnable(GL_TEXTURE_2D);
-    glClearColor (0.0, 1.0, 1.0, 1.0);
-    glEnable(GL_DEPTH_TEST);
-
+    //glEnable(GL_TEXTURE_2D);
+    glewExperimental = GL_TRUE;
+    glewInit();
+    
     
     //Init devil for image reading
     ImageLibManager::Instance()->Init();
-    
-    //Setup glut callbacks
-    //glutReshapeFunc(reshape);
-    
-    
-    
-    printf("\n%s\n", glGetString(GL_VERSION));
-    
-    //Check for support
-    glewInit();
-    
-    if (glewIsSupported("GL_VERSION_2_1"))
-        printf("Ready for OpenGL 2.1\n");
-    else {
-        printf("OpenGL 2.1 not supported\n");
-        return false;
-    }
-    
-    if (GLEW_ARB_vertex_shader && GLEW_ARB_fragment_shader)
-        printf("Ready for GLSL - vertex, fragment\n");
-    else {
-        printf("Not Supported :(");
-        return false;
-    }
-    
     PhysxManager::Instance()->Init();
     
-    TheLevel = new Level();
+    
 
+    
+    
+    //int width, height;
+    //glfwGetFramebufferSize(window, &width, &height);
+    glViewport(0, 0, ScreenWidth, ScreenHeight);
+    
+  
+    
+    TheLevel = new Level();
+    
     
     mainLoop();
     
@@ -94,9 +83,9 @@ void Program::mainLoop()
     {
         render();
         
-        glfwSwapBuffers(window);
         
-        glfwPollEvents();
+        
+        
     }
 }
 
@@ -104,26 +93,20 @@ void Program::render()
 {
     
 
+    testz+=2;
     
     
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
-    
-    int width, height;
-    glfwGetFramebufferSize(window, &width, &height);
-    glViewport(0, 0, width, height);
-    
-    glLoadIdentity();
-    gluPerspective(45.,(GLfloat) width/(GLfloat) height,0.1, 800.0);
-    
-    gluLookAt(0,0,-1,
-              0.0, 0.0, 0.0,
-              0,1,0);
-    
-    glTranslatef(testx, testy, testz);
+    glClearColor (0.2, 0.3, 0.3, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
+
     glMatrixMode(GL_MODELVIEW);
-    TheLevel->Update();
   
+
+    TheLevel->Update();
+    
+    
+    glfwSwapBuffers(window);
+    glfwPollEvents();
     
     
     

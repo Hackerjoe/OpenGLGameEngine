@@ -10,12 +10,14 @@
 
 #include "Component.h"
 #include <GL/glew.h>
+#include <vector>
 //#include <OpenGL/OpenGL.h>
 //#include <GLFW/glfw3.h>
 
 #include "HIDManager.h"
 #include "JDFileManager.h"
 #include "JDMath.h"
+
 
 class RenderComponent : public Component
 {
@@ -29,15 +31,20 @@ public:
     void setShaders(std::string vert,std::string frag);
     void setDiffuseColor(GLuint programID, Color color);
     void setDiffuseTexture(GLuint programID, GLuint texture);
-    GLuint Program;
+    GLuint shaderProgram;
     
 private:
     void Draw();
     
     void printShaderInfoLog(GLuint obj);
     void printProgramInfoLog(GLuint obj);
-    GLuint Vertex;
-    GLuint Fragment;
+    GLuint vertexShader;
+    GLuint fragmentShader;
+    GLuint VBO;
+    GLuint VAO;
+    
+    
+    //std::vector<unsigned int>* indices;
 
     
     

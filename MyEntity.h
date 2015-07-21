@@ -11,6 +11,7 @@
 #include "RigidDynamic.h"
 #include "RigidStatic.h"
 #include "PxPhysicsAPI.h"
+#include "TestInstancingComp.h"
 using namespace physx;
 class MyEntity : public Entity
 {
@@ -23,5 +24,5 @@ public:
     
     RenderComponent* MyRenderComp;
     RigidDynamic* MyPhysxComp;
-    RigidStatic* Plane;
+    //RigidStatic* Plane;
 };

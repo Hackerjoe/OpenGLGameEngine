@@ -15,8 +15,8 @@ MyEntity2::MyEntity2(float x,float y,float z)
 :Entity(x,y,z)
 {
     
-    MyRenderComp = new RenderComponent("simple2.vert","simple2.frag");
-    MyRenderComp->setDiffuseTexture(MyRenderComp->Program,ImageLibManager::Instance()->loadImage("test.png"));
+    //MyRenderComp = new RenderComponent("simple2.vert","simple2.frag");
+    //MyRenderComp->setDiffuseTexture(MyRenderComp->Program,ImageLibManager::Instance()->loadImage("test.png"));
     PxVec3 dimensions(0.5,0.5,0.5);
     PxBoxGeometry geometry(dimensions);
     PxMaterial* mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);//phymPhysics->createMaterial(0.5,0.5,0.5);
