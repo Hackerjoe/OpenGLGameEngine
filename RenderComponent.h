@@ -17,31 +17,28 @@
 #include "HIDManager.h"
 #include "JDFileManager.h"
 #include "JDMath.h"
-
+#include "Shader.h"
+#include "Camera.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 class RenderComponent : public Component
 {
 public:
-    RenderComponent(std::string VetexShaderFileLoc,std::string FragmentShaderFileLoc);
+    RenderComponent(Camera* cCamera,Shader* mShader);
     ~RenderComponent();
     
     virtual void Update();
     virtual void Start();
     
-    void setShaders(std::string vert,std::string frag);
-    void setDiffuseColor(GLuint programID, Color color);
-    void setDiffuseTexture(GLuint programID, GLuint texture);
-    GLuint shaderProgram;
-    
+    Shader* shader;
+    float test = 0;
 private:
     void Draw();
-    
-    void printShaderInfoLog(GLuint obj);
-    void printProgramInfoLog(GLuint obj);
-    GLuint vertexShader;
-    GLuint fragmentShader;
     GLuint VBO;
     GLuint VAO;
+    Camera* CurrentCamera;
+    
     
     
     //std::vector<unsigned int>* indices;

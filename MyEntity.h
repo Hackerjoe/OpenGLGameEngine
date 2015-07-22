@@ -11,12 +11,14 @@
 #include "RigidDynamic.h"
 #include "RigidStatic.h"
 #include "PxPhysicsAPI.h"
-#include "TestInstancingComp.h"
+#include "Shader.h"
+
 using namespace physx;
+
 class MyEntity : public Entity
 {
 public:
-    MyEntity(float x,float y,float z);
+    MyEntity(float x,float y,float z,Camera *cCamera, Shader* mShader);
     ~MyEntity();
     
     virtual void Update();

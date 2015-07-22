@@ -10,17 +10,26 @@
 #define __OpenGL__Camera__
 
 #include <glm/glm.hpp>
+#include <GL/glew.h>
+#include <glm/gtc/matrix_transform.hpp>
+//#include <glm/gtc/type_ptr.hpp>
 
 class Camera
 {
 public:
-    Camera();
+    Camera(const GLuint width, const GLuint height);
     ~Camera();
-private:
-    //glm::vec3 CameraPosition;
-    //glm::mat4 View;
-    //glm::mat4 Projection;
     
+    void Update();
+    
+    glm::vec3 CameraPosition;
+    glm::mat4 View;
+    glm::mat4 Projection;
+    
+private:
+    GLuint Width;
+    GLuint Height;
+
 };
 
 #endif /* defined(__OpenGL__Camera__) */

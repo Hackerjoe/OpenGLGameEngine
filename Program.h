@@ -24,6 +24,8 @@
 
 #include <GLFW/glfw3.h>
 
+#include "Camera.h"
+
 
 #include "PhysxManager.h"
 
@@ -53,12 +55,11 @@ public:
     static float testy;
     static float testz;
     
-    int Frame;
-    float CurrentTime;
-    float PrevTime;
-    float fps;
+    GLFWwindow* window;
     
-     GLFWwindow* window;
+    Camera* MainCamera;
+    
+    
     
     
 private:

@@ -19,6 +19,7 @@ Program::Program()
 {
     ScreenWidth = 800;
     ScreenHeight = 600;
+    MainCamera = new Camera(ScreenWidth,ScreenHeight);
     
 }
 
@@ -30,9 +31,6 @@ float Program::testz = 5;
 
 bool Program::Init(int argc, char** argv)
 {
-    
-   
-   
     
     if (!glfwInit())
         return false;
@@ -57,18 +55,14 @@ bool Program::Init(int argc, char** argv)
     //Init devil for image reading
     ImageLibManager::Instance()->Init();
     PhysxManager::Instance()->Init();
-    
-    
 
-    
-    
     //int width, height;
     //glfwGetFramebufferSize(window, &width, &height);
     glViewport(0, 0, ScreenWidth, ScreenHeight);
     
   
     
-    TheLevel = new Level();
+    TheLevel = new Level(ScreenWidth,ScreenHeight);
     
     
     mainLoop();
@@ -92,18 +86,10 @@ void Program::mainLoop()
 void Program::render()
 {
     
-
-    testz+=2;
-    
-    
     glClearColor (0.2, 0.3, 0.3, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glMatrixMode(GL_MODELVIEW);
-  
-
     TheLevel->Update();
-    
     
     glfwSwapBuffers(window);
     glfwPollEvents();
@@ -114,15 +100,7 @@ void Program::render()
 
 void Program::reshape(GLFWwindow* window, int width, int height)
 {
-    /*
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    gluPerspective(45.,(GLfloat) width/(GLfloat) height,0.1, 800.0);
-
-    gluLookAt(0.0,0.0,5.0, 0.0, 0.0, 0.0, 0,1,0);
-    glMatrixMode(GL_MODELVIEW)*/
-
+    
 }
 
 void Program::SetLevel(Level* level)

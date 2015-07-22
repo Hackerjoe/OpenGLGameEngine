@@ -9,9 +9,8 @@
 #ifndef __OpenGL__Level__
 #define __OpenGL__Level__
 
-#include "Entity.h"
-#include "MyEntity.h"
-#include "MyEntity2.h"
+
+//#include "MyEntity2.h"
 #include <vector>
 
 #include <PxPhysicsAPI.h>
@@ -27,16 +26,18 @@
 #include <PxSimulationEventCallback.h>
 
 #include "PhysxManager.h"
-
+#include "Camera.h"
+#include "Entity.h"
+#include "MyEntity.h"
 
 using namespace physx;
 
-
+class Entity;
 
 class Level : public PxSimulationEventCallback
 {
 public:
-    Level();
+    Level(GLuint Width, GLuint Height);
     ~Level();
     
     void AddEntity(Entity* TheEntity);
@@ -62,6 +63,10 @@ public:
     void InitPxScene();
     
     PxSimulationFilterShader gDefaultFilterShader = PxDefaultSimulationFilterShader;
+    
+    Camera* MainCamera;
+    
+    
     
 private:
     

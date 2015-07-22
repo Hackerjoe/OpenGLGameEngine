@@ -11,7 +11,7 @@
 
 Component::Component()
 {
-    Parent = new Entity(0,0,0);
+    Parent = new Entity(0,0,0, nullptr);
 }
 
 Component::~Component()

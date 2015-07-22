@@ -9,9 +9,9 @@
 #include "Entity.h"
 
 
-Entity::Entity(float x,float y,float z)
+Entity::Entity(float x,float y,float z,Camera* cCamera)
 {
- 
+    CurrentCamera = cCamera;
     Components = new std::vector<Component*>;
     Postion =  new Vector3(x,y,z);
 }

@@ -7,32 +7,28 @@
 //
 
 #include "Level.h"
+#include <glm/glm.hpp>
+#include "glm/ext.hpp"
+#include "Shader.h"
 
-
-Level::Level():PxSimulationEventCallback()
+Level::Level(GLuint Width, GLuint Height):PxSimulationEventCallback()
 {
+    MainCamera = new Camera(Width,Height);
+    
     InitPxScene();
     Entities = new std::vector<Entity*>;
     
     PxVec3 dimensions(1,1,1);
     PxBoxGeometry geometry(dimensions);
-    Entity* Plane = new Entity(0,0,0);
+    Entity* Plane = new Entity(0,0,0, MainCamera);
     Plane->AddComponent(new RigidStatic(geometry,*new PxVec3(0,-1,0),*new PxVec3(0.5,0.5,0.5)));
     //AddEntity(Plane);
-    
-    MyEntity* hi = new MyEntity(0,1,0);
-    AddEntity(hi);
-    
-    
-    
-    
-       
-                
-    
-  
-    
-    
-    
+    Shader* mShader = new Shader("simple.vert","simple.frag");
+    for(int i = 0; i<1000; i++)
+    {
+        MyEntity* hi = new MyEntity(0,i,0, MainCamera,mShader);
+        AddEntity(hi);
+    }
 }
 
 Level::~Level()
@@ -46,6 +42,8 @@ void Level::Start()
 
 void Level::Update()
 {
+    MainCamera->Update();
+    //std::cout<< glm::to_string(MainCamera->View) << std::endl;
     for (std::vector<Entity*>::iterator it = this->Entities->begin() ; it != this->Entities->end(); ++it)
     {
         (*it)->Update();

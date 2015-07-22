@@ -8,11 +8,11 @@
 
 #include "MyEntity.h"
 
-MyEntity::MyEntity(float x,float y,float z)
-    :Entity(x,y,z)
+MyEntity::MyEntity(float x,float y,float z,Camera *cCamera, Shader* mShader)
+    :Entity(x,y,z,cCamera)
 {
     
-    MyRenderComp = new RenderComponent("simple.vert","simple.frag");
+    MyRenderComp = new RenderComponent(cCamera,mShader);
     //MyRenderComp->setDiffuseColor(MyRenderComp->Program, *new Color(0,1,0,1));
     PxVec3 dimensions(0.5,0.5,0.5);
     PxBoxGeometry geometry(dimensions);
