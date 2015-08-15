@@ -34,6 +34,7 @@ ImageLibManager* ImageLibManager::Instance()
 
 void ImageLibManager::Init()
 {
+    ilutRenderer(ILUT_OPENGL);
     ilInit();
     iluInit();
     ilutInit();
@@ -62,10 +63,10 @@ GLuint ImageLibManager::loadImage(const char* theFileName)
         // If the image is flipped (i.e. upside-down and mirrored, flip it the right way up!)
         ILinfo ImageInfo;
         iluGetImageInfo(&ImageInfo);
-        if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+        /*if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
         {
-            iluFlipImage();
-        }
+            //iluFlipImage();
+        }*/
         
         // Convert the image into a suitable format to work with
         // NOTE: If your image contains alpha channel you can replace IL_RGB with IL_RGBA
@@ -78,7 +79,7 @@ GLuint ImageLibManager::loadImage(const char* theFileName)
             std::cout << "Image conversion failed - IL reports error: " << error << " - " << iluErrorString(error) << std::endl;
             exit(-1);
         }
-        
+       
         // Generate a new texture
         glGenTextures(1, &textureID);
         
@@ -86,12 +87,18 @@ GLuint ImageLibManager::loadImage(const char* theFileName)
         glBindTexture(GL_TEXTURE_2D, textureID);
         
         // Set texture clamping method
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+        glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
         
         // Set texture interpolation method to use linear interpolation (no MIPMAPS)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        /*
+         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
+         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+         glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+         */
         
         // Specify the texture specification
         glTexImage2D(GL_TEXTURE_2D, 				// Type of texture
@@ -99,10 +106,14 @@ GLuint ImageLibManager::loadImage(const char* theFileName)
                      ilGetInteger(IL_IMAGE_FORMAT),	// Internal pixel format to use. Can be a generic type like GL_RGB or GL_RGBA, or a sized type
                      ilGetInteger(IL_IMAGE_WIDTH),	// Image width
                      ilGetInteger(IL_IMAGE_HEIGHT),	// Image height
-                     1,				// Border width in pixels (can either be 1 or 0)
+                     0,				// Border width in pixels (can either be 1 or 0)
                      ilGetInteger(IL_IMAGE_FORMAT),	// Format of image pixel data
                      GL_UNSIGNED_BYTE,		// Image data type
                      ilGetData());			// The actual image data itself
+        
+        glGenerateMipmap(GL_TEXTURE_2D);
+        
+        
     }
     else // If we failed to open the image file in the first place...
     {

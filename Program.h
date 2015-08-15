@@ -28,6 +28,8 @@
 
 
 #include "PhysxManager.h"
+#include "Model.h"
+#include "Shader.h"
 
 class Program
 {
@@ -58,12 +60,26 @@ public:
     GLFWwindow* window;
     
     Camera* MainCamera;
+    Shader* shader;
+    Shader* shaderGeometryPass;
+    Shader* shaderLightingPass;
     
+    // Load models
+    Model* ourModel;
     
+    std::vector<glm::vec3> lightPositions;
+    std::vector<glm::vec3> lightColors;
+    
+    GLuint gBuffer;
+    GLuint gPosition, gNormal, gAlbedoSpec;
     
     
 private:
-
+    GLuint quadVAO = 0;
+    GLuint quadVBO;
+    void RenderQuad();
+    
+    
     
     
 };

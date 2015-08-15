@@ -123,3 +123,8 @@ GLuint Shader::GetShader()
 {
     return ShaderProgram;
 }
+
+Shader::~Shader()
+{
+    
+}

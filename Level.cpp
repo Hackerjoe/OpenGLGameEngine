@@ -16,7 +16,7 @@ Level::Level(GLuint Width, GLuint Height):PxSimulationEventCallback()
     MainCamera = new Camera(Width,Height);
     
     InitPxScene();
-    Entities = new std::vector<Entity*>;
+    /*Entities = new std::vector<Entity*>;
     
     PxVec3 dimensions(1,1,1);
     PxBoxGeometry geometry(dimensions);
@@ -24,11 +24,11 @@ Level::Level(GLuint Width, GLuint Height):PxSimulationEventCallback()
     Plane->AddComponent(new RigidStatic(geometry,*new PxVec3(0,-1,0),*new PxVec3(0.5,0.5,0.5)));
     //AddEntity(Plane);
     Shader* mShader = new Shader("simple.vert","simple.frag");
-    for(int i = 0; i<1000; i++)
+    for(int i = 0; i<3000; i++)
     {
         MyEntity* hi = new MyEntity(0,i,0, MainCamera,mShader);
         AddEntity(hi);
-    }
+    }*/
 }
 
 Level::~Level()
