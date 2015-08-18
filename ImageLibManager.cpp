@@ -118,13 +118,14 @@ GLuint ImageLibManager::loadImage(const char* theFileName)
     else // If we failed to open the image file in the first place...
     {
         error = ilGetError();
+        std::cout << "Image load failed - IL reports error: " << theFileName << " - " << iluErrorString(error) << std::endl;
         std::cout << "Image load failed - IL reports error: " << error << " - " << iluErrorString(error) << std::endl;
         exit(-1);
     }
     
     ilDeleteImages(1, &imageID); // Because we have already copied image data into texture data we can release memory used by image.
     
-    std::cout << "Texture creation successful." << std::endl;
+    //std::cout << "Texture creation successful." << std::endl;
     
     return textureID; // Return the GLuint to the texture so you can use it!
 }

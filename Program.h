@@ -30,13 +30,14 @@
 #include "PhysxManager.h"
 #include "Model.h"
 #include "Shader.h"
+#include "PointLight.h"
 
 class Program
 {
 public:
     
-    GLuint ScreenWidth;
-    GLuint ScreenHeight;
+    int ScreenWidth;
+    int ScreenHeight;
     Level* TheLevel;
     glm::vec3 hu;
     
@@ -63,15 +64,22 @@ public:
     Shader* shader;
     Shader* shaderGeometryPass;
     Shader* shaderLightingPass;
+    Shader* stencilPassShader;
     
     // Load models
-    Model* ourModel;
+    Model* Nanosuit;
+    Model* SphereModel;
+    GLint ModeLoc;
+    bool ModelLocSet;
     
-    std::vector<glm::vec3> lightPositions;
-    std::vector<glm::vec3> lightColors;
+   
+    
+    std::vector<PointLight> PointLights;
+
     
     GLuint gBuffer;
     GLuint gPosition, gNormal, gAlbedoSpec;
+    GLuint FinalTexture;
     
     
 private:
@@ -79,7 +87,15 @@ private:
     GLuint quadVBO;
     void RenderQuad();
     
+    double CurrentTime;
+    int NBFrames;
+    double LastTime;
     
+    void GeoPass();
+    void StencilPass();
+    void LightPass();
+    
+    void CalcMS();
     
     
 };
