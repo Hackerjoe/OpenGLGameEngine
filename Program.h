@@ -75,11 +75,14 @@ public:
    
     
     std::vector<PointLight> PointLights;
-
+    
+    glm::mat4 projection;
+    glm::mat4 view;
     
     GLuint gBuffer;
     GLuint gPosition, gNormal, gAlbedoSpec;
     GLuint FinalTexture;
+    GLuint rboDepth;
     
     
 private:
