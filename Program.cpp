@@ -26,7 +26,7 @@ Program::Program()
 }
 
 float Program::testx = 1;
-float Program::testy = 0;
+float Program::testy = 1;
 float Program::testz = 5;
 
 
@@ -156,10 +156,11 @@ void Program::mainLoop()
 
 void Program::render()
 {
-    testx += 0.0001;
+    testx += 0.002;
+    testy -= 0.005;
     
     projection = glm::perspective(45.0f, (float)ScreenWidth/(float)ScreenHeight, 0.1f, 100.0f);
-    view = glm::lookAt(glm::vec3(testx, 0, 1), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    view = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     
     
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, gBuffer);
@@ -236,6 +237,12 @@ void Program::GeoPass()
 
     glUniformMatrix4fv(glGetUniformLocation(shaderGeometryPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(model));
     Nanosuit->Draw(*shaderGeometryPass);
+    
+    model = glm::translate(model, glm::vec3(0.0f, 0, -10)); // Translate it down a bit so it's at the center of the scene
+    
+    glUniformMatrix4fv(glGetUniformLocation(shaderGeometryPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+    Nanosuit->Draw(*shaderGeometryPass);
+    
     glDepthMask(GL_FALSE);
     
 }
@@ -261,8 +268,8 @@ void Program::StencilPass()
     
     
     glm::mat4 model;
-    model = glm::translate(model, glm::vec3(0.0f, 0, 0.0f)); // Translate it down a bit so it's at the center of the scene
-    model = glm::scale(model, glm::vec3(1.0f, 1.0f, 2.0f));	// It's a bit too big for our scene, so scale it down
+    model = glm::translate(model, glm::vec3(0.0f, testy, 0)); // Translate it down a bit so it's at the center of the scene
+    model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));	// It's a bit too big for our scene, so scale it down
     
     shader->UseShader();
     
@@ -272,6 +279,17 @@ void Program::StencilPass()
     glUniformMatrix4fv(glGetUniformLocation(shader->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 
     SphereModel->Draw(*shader);
+    
+    
+    
+    glm::mat4 light2;
+    light2 = glm::translate(light2, glm::vec3(0.0f, 0, 2)); // Translate it down a bit so it's at the center of the scene
+    light2 = glm::scale(light2, glm::vec3(2.0f, 2.0f, 2.0f));	// It'
+    glUniformMatrix4fv(glGetUniformLocation(shader->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(light2));
+    SphereModel->Draw(*shader);
+    
+
+    
     
 }
 
@@ -286,7 +304,7 @@ void Program::LightPass()
     glBindTexture(GL_TEXTURE_2D, gNormal);
     glActiveTexture(GL_TEXTURE2);
     glBindTexture(GL_TEXTURE_2D, gAlbedoSpec);
-    //glStencilMask(0);
+
     glStencilFunc(GL_NOTEQUAL, 0,0xff);
     
     glDisable(GL_DEPTH_TEST);
@@ -298,8 +316,8 @@ void Program::LightPass()
     glCullFace(GL_FRONT);
     
     glm::mat4 model;
-    model = glm::translate(model, glm::vec3(0.0f, 0, 0.0f)); // Translate it down a bit so it's at the center of the scene
-    model = glm::scale(model, glm::vec3(1.0f, 1.0f, 2.0f));	// It's a bit too big for our scene, so scale it down
+    model = glm::translate(model, glm::vec3(0.0f, testy, 0)); // Translate it down a bit so it's at the center of the scene
+    model = glm::scale(model, glm::vec3(2.0f, 2.0f, 2.0f));	// It's a bit too big for our scene, so scale it down
     
     shaderLightingPass->UseShader();
     
@@ -308,7 +326,31 @@ void Program::LightPass()
     glUniformMatrix4fv(glGetUniformLocation(shaderLightingPass->GetShader(), "view"), 1, GL_FALSE, glm::value_ptr(view));
     glUniformMatrix4fv(glGetUniformLocation(shaderLightingPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(model));
     
+    //////////////
+    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "viewPos"), 1, glm::value_ptr(glm::vec3(0, 0, 5)));
+   
+    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Color"), 1, glm::value_ptr(glm::vec3(1,1,1)));
+    // Update attenuation parameters and calculate radius
+    const GLfloat constant = 1.0; // Note that we don't send this to the shader, we assume it is always 1.0 (in our case)
+    const GLfloat linear = 0.7;
+    const GLfloat quadratic = 1.8;
+    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "lights.Linear"), linear);
+    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "lights.Quadratic"), quadratic);
+    
+    
+    
+    /////////////
+    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Position"), 1, glm::value_ptr(glm::vec3(0,testy,0)));
     SphereModel->Draw(*shaderLightingPass);
+    glm::mat4 light2;
+    light2 = glm::translate(light2, glm::vec3(0.0f, 0, 2)); // Translate it down a bit so it's at the center of the scene
+    light2 = glm::scale(light2, glm::vec3(2.0f, 2.0f, 2.0f));	// It'
+    
+    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Position"), 1, glm::value_ptr(glm::vec3(0,0,2)));
+    glUniformMatrix4fv(glGetUniformLocation(shaderLightingPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(light2));
+    SphereModel->Draw(*shaderLightingPass);
+    
+
     
     glCullFace(GL_BACK);
     
