@@ -9,32 +9,24 @@
 #ifndef __OpenGL__PointLight__
 #define __OpenGL__PointLight__
 #pragma once
-#include <stdio.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <GL/glew.h>
+#include "Shader.h"
 
 class PointLight
 {
 public:
-    PointLight();
-    glm::vec3 Position;
-    glm::vec3 Color;
-    float Linear;
-    float Quadratic;
-    float Radius;
-    bool set;
-    GLint PositionUni;
-    GLint ColorUni;
-    GLint LinearUni;
-    GLint QuadraticUni;
-    GLint RadiusUni;
-    
-    
-    
-    
-    
+	PointLight();
+	PointLight(glm::vec3 Position,float Radius,glm::vec3 Color);
+
+	glm::mat4 ModelMatrix;
+	glm::vec3 Position;
+	glm::vec3 Color;
+	float Radius;
+
 private:
-    
+
 };
 
 #endif /* defined(__OpenGL__PointLight__) */

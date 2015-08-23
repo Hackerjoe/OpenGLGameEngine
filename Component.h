@@ -19,12 +19,12 @@ class Component
 {
 public:
 
-    Component();
-    ~Component();
+	Component();
+	~Component();
 
-    virtual void Start();
-    virtual void Update();
-    Entity* Parent;
+	virtual void Start();
+	virtual void Update();
+	Entity* Parent;
 };
 
 

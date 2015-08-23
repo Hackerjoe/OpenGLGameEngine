@@ -30,25 +30,25 @@ using namespace physx;
 class PhysxManager
 {
 public:
-    static PhysxManager* Instance();
-    void Init();
-    void ShutDown();
-    
-    PxPhysics *mPhysics = NULL;
-    PxFoundation *mFoundation = NULL;
-    
-    void GetPhysxMatrix(PxMat33 m, PxVec3 t, float* mat);
-    PxScene* GetCurrentScene();
-    void SetCurrentScene(PxScene *Scene);
-    
-    
+	static PhysxManager* Instance();
+	void Init();
+	void ShutDown();
+
+	PxPhysics *mPhysics;
+	PxFoundation *mFoundation;
+
+	void GetPhysxMatrix(PxMat33 m, PxVec3 t, float* mat);
+	PxScene* GetCurrentScene();
+	void SetCurrentScene(PxScene *Scene);
+
+
 private:
-    PhysxManager();
-    ~PhysxManager();
-    
-    static PhysxManager* pInstance;
-    PxScene* CurrentScene;
-    
+	PhysxManager();
+	~PhysxManager();
+
+	static PhysxManager* pInstance;
+	PxScene* CurrentScene;
+
 };
 
 #endif /* defined(__OpenGL__PhysxManager__) */

@@ -18,13 +18,13 @@ using namespace physx;
 class MyEntity : public Entity
 {
 public:
-    MyEntity(float x,float y,float z,Camera *cCamera, Shader* mShader);
-    ~MyEntity();
-    
-    virtual void Update();
-    virtual void Start();
-    
-    RenderComponent* MyRenderComp;
-    RigidDynamic* MyPhysxComp;
-    //RigidStatic* Plane;
+	MyEntity(float x, float y, float z, Camera *cCamera, Shader* mShader);
+	~MyEntity();
+
+	virtual void Update();
+	virtual void Start();
+
+	RenderComponent* MyRenderComp;
+	RigidDynamic* MyPhysxComp;
+	//RigidStatic* Plane;
 };

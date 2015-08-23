@@ -12,22 +12,22 @@
 class Vector3
 {
 public:
-    
-    float x;
-    float y;
-    float z;
-    
-    Vector3(float x,float y,float z);
-    Vector3();
-    
-    bool operator==(const Vector3& other)
-    {
-        if(this->x == other.x && this->y == other.y && this->z == other.z)
-        {
-            return true;
-        }
-        return false;
-    }
+
+	float x;
+	float y;
+	float z;
+
+	Vector3(float x, float y, float z);
+	Vector3();
+
+	bool operator==(const Vector3& other)
+	{
+		if (this->x == other.x && this->y == other.y && this->z == other.z)
+		{
+			return true;
+		}
+		return false;
+	}
 };
 
 #endif /* defined(__OpenGL__Vector3__) */

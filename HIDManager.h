@@ -14,18 +14,18 @@
 class HIDManager
 {
 public:
-    static HIDManager* Instance();
-    static void KeyBoardFunc(unsigned char key, int x, int y);
-    static void KeyBoardUpFunc(unsigned char key, int x, int y);
-    static bool GetKey(char key);
-    
+	static HIDManager* Instance();
+	static void KeyBoardFunc(unsigned char key, int x, int y);
+	static void KeyBoardUpFunc(unsigned char key, int x, int y);
+	static bool GetKey(char key);
+
 private:
-     HIDManager();
-    ~HIDManager();
-    
-    static HIDManager* pInstance;
-    static bool* KeyStates;
-    
+	HIDManager();
+	~HIDManager();
+
+	static HIDManager* pInstance;
+	static bool* KeyStates;
+
 };
 
 #endif /* defined(__OpenGL__HIDManager__) */

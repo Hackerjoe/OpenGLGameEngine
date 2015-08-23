@@ -17,18 +17,18 @@
 class Camera
 {
 public:
-    Camera(const GLuint width, const GLuint height);
-    ~Camera();
-    
-    void Update();
-    
-    glm::vec3 CameraPosition;
-    glm::mat4 View;
-    glm::mat4 Projection;
-    
+	Camera(const GLuint width, const GLuint height);
+	~Camera();
+
+	void Update();
+
+	glm::vec3 CameraPosition;
+	glm::mat4 View;
+	glm::mat4 Projection;
+
 private:
-    GLuint Width;
-    GLuint Height;
+	GLuint Width;
+	GLuint Height;
 
 };
 

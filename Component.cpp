@@ -11,20 +11,19 @@
 
 Component::Component()
 {
-    Parent = new Entity(0,0,0, nullptr);
+	Parent = new Entity(0, 0, 0, nullptr);
 }
 
 Component::~Component()
 {
-    
+
 }
 
 void Component::Start()
 {
-    
+
 }
 
 void Component::Update()
 {
-
 }

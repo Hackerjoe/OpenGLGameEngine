@@ -9,7 +9,7 @@
 
 #ifndef __OpenGL__JDFileManager__
 #define __OpenGL__JDFileManager__
-
+#define _CRT_SECURE_NO_DEPRECATE
 #include <fstream>
 #include <string>
 #include <iostream>
@@ -17,13 +17,13 @@
 class JDFileManager
 {
 public:
-    static JDFileManager* Instance();
-    bool WriteToFile(const char *FileName, std::string Content);
-    char* ReadFile(const char *FileName);
+	static JDFileManager* Instance();
+	bool WriteToFile(const char *FileName, std::string Content);
+	char* ReadFile(const char *FileName);
 private:
-    JDFileManager();
-    ~JDFileManager();
-    static JDFileManager* pInstance;
+	JDFileManager();
+	~JDFileManager();
+	static JDFileManager* pInstance;
 
 };
 

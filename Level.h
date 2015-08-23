@@ -37,48 +37,48 @@ class Entity;
 class Level : public PxSimulationEventCallback
 {
 public:
-    Level(GLuint Width, GLuint Height);
-    ~Level();
-    
-    void AddEntity(Entity* TheEntity);
-    void Start();
-    void Update();
-    
-    ////////////////////////////////////////////////////////////
-    
-    // For PxSimulationEventCallback
-    
-    virtual void							onContact(const PxContactPairHeader& pairHeader,const PxContactPair* pairs,PxU32 nbPairs);
-    virtual void							onTrigger(PxTriggerPair* pairs,PxU32 count);
-    virtual void							onConstraintBreak(PxConstraintInfo*, PxU32) {}
-    virtual void							onWake(PxActor** , PxU32 ) {}
-    virtual void							onSleep(PxActor** , PxU32 ){}
-    
-    ///////////////////////////////////////////////////////////
-    
-    // Physx Scene
-    
-    PxScene *mScene;
-    
-    void InitPxScene();
-    
-    PxSimulationFilterShader gDefaultFilterShader = PxDefaultSimulationFilterShader;
-    
-    Camera* MainCamera;
-    
-    
-    
+	Level(GLuint Width, GLuint Height);
+	~Level();
+
+	void AddEntity(Entity* TheEntity);
+	void Start();
+	void Update();
+
+	////////////////////////////////////////////////////////////
+
+	// For PxSimulationEventCallback
+
+	virtual void							onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs);
+	virtual void							onTrigger(PxTriggerPair* pairs, PxU32 count);
+	virtual void							onConstraintBreak(PxConstraintInfo*, PxU32) {}
+	virtual void							onWake(PxActor**, PxU32) {}
+	virtual void							onSleep(PxActor**, PxU32){}
+
+	///////////////////////////////////////////////////////////
+
+	// Physx Scene
+
+	PxScene *mScene;
+
+	void InitPxScene();
+
+	PxSimulationFilterShader gDefaultFilterShader;
+
+	Camera* MainCamera;
+
+
+
 private:
-    
-    
-    void StepPhysx();
-    
-    
-    
-    PxReal PhysxTimeStep = 1.0f/60.0f;
-    
-    std::vector<Entity*> *Entities;
-    
+
+
+	void StepPhysx();
+
+
+
+	PxReal PhysxTimeStep;
+
+	std::vector<Entity*> *Entities;
+
 };
 
 

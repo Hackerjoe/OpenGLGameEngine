@@ -25,26 +25,26 @@
 class RenderComponent : public Component
 {
 public:
-    RenderComponent(Camera* cCamera,Shader* mShader);
-    ~RenderComponent();
-    
-    virtual void Update();
-    virtual void Start();
-    
-    Shader* shader;
-    float test = 0;
-private:
-    void Draw();
-    GLuint VBO;
-    GLuint VAO;
-    Camera* CurrentCamera;
-    
-    
-    
-    //std::vector<unsigned int>* indices;
+	RenderComponent(Camera* cCamera, Shader* mShader);
+	~RenderComponent();
 
-    
-    
+	virtual void Update();
+	virtual void Start();
+
+	Shader* shader;
+	float test;
+private:
+	void Draw();
+	GLuint VBO;
+	GLuint VAO;
+	Camera* CurrentCamera;
+
+
+
+	//std::vector<unsigned int>* indices;
+
+
+
 };
 
 

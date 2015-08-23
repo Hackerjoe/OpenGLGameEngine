@@ -1,3 +1,4 @@
+
 //
 //  Shader.h
 //  OpenGL
@@ -15,15 +16,16 @@
 class Shader
 {
 public:
-    Shader(std::string vert,std::string frag);
-    ~Shader();
-    void CreateShader(std::string vert,std::string frag);
-    void UseShader();
-    GLuint GetShader();
+	Shader(std::string vert, std::string frag);
+	Shader();
+	~Shader();
+	void CreateShader(std::string vert, std::string frag);
+	void UseShader();
+	GLuint GetShader();
 private:
-    GLuint ShaderProgram;
-    void printShaderInfoLog(GLuint obj);
-    void printProgramInfoLog(GLuint obj);
-    
+	GLuint ShaderProgram;
+	void printShaderInfoLog(GLuint obj);
+	void printProgramInfoLog(GLuint obj);
+
 };
 #endif /* defined(__OpenGL__Shader__) */

@@ -9,8 +9,7 @@
 #ifndef __OpenGL__ImageLibManager__
 #define __OpenGL__ImageLibManager__
 
-#include <OpenGL/glu.h>
-
+#include <GL\glew.h>
 #include <IL/il.h>
 #include <IL/ilu.h>
 #include <IL/ilut.h>
@@ -21,19 +20,19 @@
 class ImageLibManager
 {
 
-    
+
 public:
-    static ImageLibManager* Instance();
-    void Init();
-    GLuint loadImage(const char* theFileName);
+	static ImageLibManager* Instance();
+	void Init();
+	GLuint loadImage(const char* theFileName);
 private:
-    
-    ImageLibManager();
-    ~ImageLibManager();
-    
-    static ImageLibManager* pInstance;
-    
-    
+
+	ImageLibManager();
+	~ImageLibManager();
+
+	static ImageLibManager* pInstance;
+
+
 };
 
 #endif /* defined(__OpenGL__ImageLibManager__) */

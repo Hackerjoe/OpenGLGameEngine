@@ -16,23 +16,24 @@
 #include "JDMath.h"
 #include <iostream>
 #include "Camera.h"
+
 class Component;
 
 class Entity
 {
 public:
-    
-    Entity(float x,float y,float z,Camera* cCamera);
-    ~Entity();
-    
-    virtual void Start();
-    virtual void Update();
-    void AddComponent(Component* comp);
-    Vector3 *Postion;
-    float Matrix[16];
-    Camera* CurrentCamera;
+
+	Entity(float x, float y, float z, Camera* cCamera);
+	~Entity();
+
+	virtual void Start();
+	virtual void Update();
+	void AddComponent(Component* comp);
+	Vector3 *Postion;
+	float Matrix[16];
+	Camera* CurrentCamera;
 private:
-    std::vector<Component*> *Components;
+	std::vector<Component*> *Components;
 
 };
 

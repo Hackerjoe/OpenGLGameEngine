@@ -18,19 +18,19 @@ using namespace physx;
 class RigidStatic : public Component
 {
 public:
-    
-    PxMaterial*         mMaterial;
-    PxGeometry*         mGeometry;
-    PxVec3*             mPositon;
-    PxVec3*             mScale;
-    
-    PxRigidStatic* mActor;
-    
-    virtual void Start();
-    virtual void Update();
-    
-    RigidStatic(PxGeometry Geometry, PxVec3 Position, PxVec3 Scale);
-    ~RigidStatic();
+
+	PxMaterial*         mMaterial;
+	PxGeometry*         mGeometry;
+	PxVec3*             mPositon;
+	PxVec3*             mScale;
+
+	PxRigidStatic* mActor;
+
+	virtual void Start();
+	virtual void Update();
+
+	RigidStatic(PxGeometry Geometry, PxVec3 Position, PxVec3 Scale);
+	~RigidStatic();
 private:
 };
 

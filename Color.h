@@ -1,3 +1,4 @@
+
 //
 //  Color.h
 //  OpenGL
@@ -12,17 +13,17 @@
 class Color
 {
 public:
-    
-    Color(float _r, float _g, float _b, float _a);
-    ~Color();
-    
-    float r;
-    float g;
-    float b;
-    float a;
-    
+
+	Color(float _r, float _g, float _b, float _a);
+	~Color();
+
+	float r;
+	float g;
+	float b;
+	float a;
+
 private:
-    
+
 };
 
 #endif /* defined(__OpenGL__Color__) */
