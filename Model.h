@@ -60,13 +60,14 @@ private:
     {
         // Read file via ASSIMP
         Assimp::Importer importer;
-        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs);
+        const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_FlipUVs | aiProcess_CalcTangentSpace);
         // Check for errors
         if(!scene || scene->mFlags == AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
         {
             cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
             return;
         }
+       
         // Retrieve the directory path of the filepath
         this->directory = path.substr(0, path.find_last_of('/'));
         
@@ -106,15 +107,35 @@ private:
             Vertex vertex;
             glm::vec3 vector; // We declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
             // Positions
+            
+            
             vector.x = mesh->mVertices[i].x;
             vector.y = mesh->mVertices[i].y;
             vector.z = mesh->mVertices[i].z;
             vertex.Position = vector;
+            
+          
+            
             // Normals
             vector.x = mesh->mNormals[i].x;
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
             vertex.Normal = vector;
+            
+            if(mesh->HasTangentsAndBitangents())
+            {
+                vector.x = mesh->mTangents[i].x;
+                vector.y = mesh->mTangents[i].y;
+                vector.z = mesh->mTangents[i].z;
+                vertex.Tangent = vector;
+                
+                vector.x = mesh->mBitangents[i].x;
+                vector.y = mesh->mBitangents[i].y;
+                vector.z = mesh->mBitangents[i].z;
+                vertex.Bitangent = vector;
+            }
+            
+            
             // Texture Coordinates
             if(mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
             {
@@ -128,6 +149,10 @@ private:
             }
             else
                 vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+         
+            
+           
+            
             vertices.push_back(vertex);
         }
         // Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -152,10 +177,18 @@ private:
             // 1. Diffuse maps
             vector<Texture> diffuseMaps = this->loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
             textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
+            
+            vector<Texture> normalMaps = this->loadMaterialTextures(material, aiTextureType_HEIGHT, "texture_normal");
+            textures.insert(textures.end(), normalMaps.begin(), normalMaps.end());
             // 2. Specular maps
             vector<Texture> specularMaps = this->loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
             textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
+            
+            
+            
         }
+        
+
         
         // Return a mesh object created from the extracted mesh data
         return Mesh(vertices, indices, textures);
@@ -176,7 +209,7 @@ private:
             {
                 if(textures_loaded[j].path == str)
                 {
-                    textures.push_back(textures_loaded[j]);
+                   textures.push_back(textures_loaded[j]);
                     skip = true; // A texture with the same filepath has already been loaded, continue to next one. (optimization)
                     break;
                 }

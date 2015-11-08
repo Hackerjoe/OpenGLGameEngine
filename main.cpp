@@ -20,8 +20,9 @@ Program MyProgram;
 
 int main(int argc, char** argv)
 {
-    MyProgram.Init(argc, argv);
-
+    if(MyProgram.Init(argc, argv))
+        MyProgram.mainLoop();
+    
     return 0;
 }
 /*

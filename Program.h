@@ -36,45 +36,39 @@ class Program
 {
 public:
     
-    int ScreenWidth;
-    int ScreenHeight;
+    Program();
+    ~Program();
+    
     Level* TheLevel;
     glm::vec3 hu;
     
-    Program();
-    ~Program();
+
     
     bool Init(int argc, char** argv);
     void render();
     void mainLoop();
     
-    static void reshape(GLFWwindow* window, int width, int height);
     
-    static void keyb(unsigned char key, int x, int y);
+    
     
     void SetLevel(Level* level);
     
-    static float testx;
-    static float testy;
-    static float testz;
+    float testx;
+    float testy;
+    float testz;
     
     GLFWwindow* window;
     
-    Camera* MainCamera;
-    Shader* shader;
     Shader* shaderGeometryPass;
     Shader* shaderLightingPass;
     Shader* stencilPassShader;
     
-    // Load models
+    // Crysis 2 Nanosuit Model.
     Model* Nanosuit;
+    
+    //Sphere Model for point lights.
     Model* SphereModel;
-    GLint ModeLoc;
-    bool ModelLocSet;
     
-   
-    
-    std::vector<PointLight> PointLights;
     
     glm::mat4 projection;
     glm::mat4 view;
@@ -84,12 +78,13 @@ public:
     GLuint FinalTexture;
     GLuint rboDepth;
     
+    float roughness = 0.1;
+    bool bSwitch;
     
 private:
-    GLuint quadVAO = 0;
-    GLuint quadVBO;
-    void RenderQuad();
+
     
+    Texture* Panorama;
     double CurrentTime;
     int NBFrames;
     double LastTime;
@@ -100,6 +95,10 @@ private:
     
     void CalcMS();
     
+    int ScreenWidth;
+    int ScreenHeight;
+    
+    void RenderQuad();
     
 };
 #endif

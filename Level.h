@@ -28,7 +28,7 @@
 #include "PhysxManager.h"
 #include "Camera.h"
 #include "Entity.h"
-#include "MyEntity.h"
+
 
 using namespace physx;
 

@@ -32,6 +32,10 @@ struct Vertex {
     glm::vec3 Normal;
     // TexCoords
     glm::vec2 TexCoords;
+    
+    glm::vec3 Tangent;
+    
+    glm::vec3 Bitangent;
 };
 
 struct Texture {
@@ -78,6 +82,12 @@ private:
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, TexCoords));
         
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Tangent));
+        
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Bitangent));
+        
         glBindVertexArray(0);
         //cout << &textures << endl;
     }
@@ -103,6 +113,7 @@ public:
         // Bind appropriate textures
         GLuint diffuseNr = 1;
         GLuint specularNr = 1;
+        GLuint normalNr = 1;
         for(GLuint i = 0; i < this->textures.size(); i++)
         {
           
@@ -114,7 +125,14 @@ public:
             if(name == "texture_diffuse")
                 ss << diffuseNr++; // Transfer GLuint to stream
             else if(name == "texture_specular")
+            {
                 ss << specularNr++; // Transfer GLuint to stream
+                
+            }
+            else if (name == "texture_normal")
+            {
+                ss << normalNr++;
+            }
             number = ss.str();
 
             

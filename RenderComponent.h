@@ -22,21 +22,25 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Model.h"
+
 class RenderComponent : public Component
 {
 public:
-    RenderComponent(Camera* cCamera,Shader* mShader);
+    
+    RenderComponent(Camera* cCamera,Shader* mShader, Model* mModel);
+    
     ~RenderComponent();
     
     virtual void Update();
     virtual void Start();
     
     Shader* shader;
-    float test = 0;
+    Model* model;
+
 private:
     void Draw();
-    GLuint VBO;
-    GLuint VAO;
+
     Camera* CurrentCamera;
     
     
