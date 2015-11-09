@@ -404,7 +404,7 @@ void Program::LightPass()
     // The roughness value of the model.
     glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "roughnessValue"),0.1f);
     // And F0 and k values for fresnel.
-    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "F0"), 1.0f);
+    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "F0"), 0.7f);
     //glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "k"),0.2f);
     
     
