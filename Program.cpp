@@ -20,6 +20,7 @@ Program::Program()
     ScreenWidth = 1440;
     ScreenHeight = 900;
     testx = 0;
+    testy = 0;
 }
 
 
@@ -178,7 +179,7 @@ void Program::render()
 {
     
     // To move the camera.
-    if(testx <= -1.0)
+    if(testx <= 0.0)
     {
         bSwitch = false;
     }
@@ -189,15 +190,17 @@ void Program::render()
     
     if (bSwitch == false)
     {
-        testx += 0.005;
+        testx += 0.001;
     }
     else
     {
-        testx -= 0.005;
+        testx -= 0.001;
     }
     
+    testy += 0.005;
+    
     // Move Camera.
-    view = glm::lookAt(glm::vec3(testx, 1, 2), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    view = glm::lookAt(glm::vec3(0, 1, 2), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     
     //Set gbuffer to draw to.
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, gBuffer);
@@ -272,8 +275,10 @@ void Program::GeoPass()
     
     // Create Model 4x4Matix for nanosuit model
     glm::mat4 model;
-    model = glm::translate(model, glm::vec3(0.0f, -1.75, 0.1f)); // Translate it down a bit so it's at the center of the scene
+    model = glm::translate(model, glm::vec3(0, -1.75, 0.1f)); // Translate it down a bit so it's at the center of the scene
     model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
+    
+    model = glm::rotate(model, testy, glm::vec3(0,1,0));
     
     // Insert values into shader progam
     glUniformMatrix4fv(glGetUniformLocation(shaderGeometryPass->GetShader(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -283,11 +288,11 @@ void Program::GeoPass()
     //Draw into models into gBuffer
     Nanosuit->Draw(*shaderGeometryPass);
     
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f));
-    glUniformMatrix4fv(glGetUniformLocation(shaderGeometryPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+    //model = glm::translate(model, glm::vec3(0.0f, 0.0f, -5.0f));
+    //glUniformMatrix4fv(glGetUniformLocation(shaderGeometryPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(model));
     
     //Draw into models into gBuffer
-    Nanosuit->Draw(*shaderGeometryPass);
+    //Nanosuit->Draw(*shaderGeometryPass);
     
     glDepthMask(GL_FALSE);
     
@@ -345,6 +350,15 @@ void Program::StencilPass()
     // Draw light two.
     SphereModel->Draw(*stencilPassShader);
     
+    /*glm::mat4 light3;
+    light3 = glm::translate(light3, glm::vec3(0.0f, 0, 1));
+    light3 = glm::scale(light3, glm::vec3(1.0f, 1.0f, 1.0f));
+    
+    glUniformMatrix4fv(glGetUniformLocation(stencilPassShader->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(light3));
+    
+    // Draw light two.
+    SphereModel->Draw(*stencilPassShader);*/
+    
 }
 
 void Program::LightPass()
@@ -390,7 +404,7 @@ void Program::LightPass()
     
     
     // Pass in the position of the camera.
-    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "viewPos"), 1, glm::value_ptr(glm::vec3(testx, 1, 2)));
+    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "viewPos"), 1, glm::value_ptr(glm::vec3(0, 1, 2)));
    
     
     
@@ -402,12 +416,12 @@ void Program::LightPass()
     
     // This will soon be its own buffer.
     // The roughness value of the model.
-    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "roughnessValue"),0.1f);
+    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "roughnessValue"),0.0f);
     // And F0 and k values for fresnel.
-    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "F0"), 0.7f);
+    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "F0"), 1.0f);
     //glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "k"),0.2f);
     
-    
+    std::cout << testx <<endl;
     
     // Create 4x4 matrix for sphere model/light1.
     glm::mat4 light1;
@@ -429,13 +443,26 @@ void Program::LightPass()
     light2 = glm::translate(light2, glm::vec3(0.0f, 0, 1));
     light2 = glm::scale(light2, glm::vec3(1.0f, 1.0f, 1.0f));
     // Light 2 color.
-    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Color"), 1, glm::value_ptr(glm::vec3(1,0,0)));
+    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Color"), 1, glm::value_ptr(glm::vec3(1,1,0)));
     // Light 2 position.
     glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Position"), 1, glm::value_ptr(glm::vec3(0,0,1)));
     // Light Model matrix.
     glUniformMatrix4fv(glGetUniformLocation(shaderLightingPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(light2));
     //Draw light 2.
     SphereModel->Draw(*shaderLightingPass);
+    
+    /*glm::mat4 light3;
+    light3 = glm::translate(light3, glm::vec3(0.0f, 0, 1));
+    light3 = glm::scale(light3, glm::vec3(1.0f, 1.0f, 1.0f));
+    // Light 2 color.
+    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Color"), 1, glm::value_ptr(glm::vec3(1,1,0)));
+    // Light 2 position.
+    glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Position"), 1, glm::value_ptr(glm::vec3(0,0,1)));
+    // Light Model matrix.
+    glUniformMatrix4fv(glGetUniformLocation(shaderLightingPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(light2));
+    //Draw light 2.
+    SphereModel->Draw(*shaderLightingPass);
+     */
     
 
     

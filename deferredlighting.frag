@@ -83,11 +83,11 @@ vec2 hammersley(uint originalSample)
     
     
     // Shift back, as only m bits are used.
-    revertSample = revertSample >> (32 - 6);
+    revertSample = revertSample >> (32 - 4);
     //std::cout << revertSample << std::endl;
     vec2 returnVec;
     // S
-    float PowF = 1.0f / (pow(2.0f,6.0f) - 1.0f);
+    float PowF = 1.0f / (pow(2.0f,4.0f) - 1.0f);
     
     
     returnVec.x = float(revertSample) * PowF;
@@ -130,9 +130,12 @@ float GGXNDF(float NDotH,float aSquared)
 // Schlick approximation
 float FresnelSchlick(float VDotH)
 {
+    
     float fresnel = pow(1.0 - VDotH, 5.0);
     fresnel *= (1.0 - F0);
     fresnel += F0;
+    
+    
     return fresnel;
 }
 
@@ -165,7 +168,7 @@ vec3 SpecularIBL(vec3 SpecularColor, float Roughness, vec3 N, vec3 V)
 {
     vec3 SpecularLighting = vec3(0,0,0);
     
-    const uint NumSamples = 64;
+    const uint NumSamples = 16;
     
     float NV = max(dot(N, V), 0.0);
     
@@ -178,10 +181,10 @@ vec3 SpecularIBL(vec3 SpecularColor, float Roughness, vec3 N, vec3 V)
         
         vec3 L = 2 * dot(V,H) * H - V;
         
-        float NH = max(dot(N, H), 0.0);
+        float NH = clamp(dot(N,H),0,1);
         
-        float VH = max(dot(V, H), 0.0);
-        float NL = max(dot(N, L), 0.0);
+        float VH = clamp(dot(V,H),0,1);
+        float NL =clamp(dot(N,L),0,1);
         
         if (NL > 0.0)
         {
@@ -191,7 +194,9 @@ vec3 SpecularIBL(vec3 SpecularColor, float Roughness, vec3 N, vec3 V)
             
             float F = FresnelSchlick(VH);
             
-            SpecularLighting += SampleColor * F * G * VH / (NH * NV);
+            F = clamp(F,0,1);
+            
+            SpecularLighting += (SampleColor * F * G * VH) / (NH * NV);
             
             
         }
