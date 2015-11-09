@@ -50,7 +50,7 @@ bool Program::Init(int argc, char** argv)
     glewInit();
     
     //Print Out what version of GL im using.
-    //std::cout << glGetString(GL_VERSION) << std::endl;
+    std::cout << glGetString(GL_VERSION) << std::endl;
     
     
     //Init devil for image reading
