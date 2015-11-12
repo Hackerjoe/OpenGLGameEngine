@@ -1,0 +1,468 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		BBDCB1E01BF483F300F82810 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1B31BF483F300F82810 /* Camera.cpp */; };
+		BBDCB1E11BF483F300F82810 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1B51BF483F300F82810 /* Color.cpp */; };
+		BBDCB1E21BF483F300F82810 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1B71BF483F300F82810 /* Component.cpp */; };
+		BBDCB1E31BF483F300F82810 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1BB1BF483F300F82810 /* Entity.cpp */; };
+		BBDCB1E41BF483F300F82810 /* HIDManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1BF1BF483F300F82810 /* HIDManager.cpp */; };
+		BBDCB1E51BF483F300F82810 /* ImageLibManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1C11BF483F300F82810 /* ImageLibManager.cpp */; };
+		BBDCB1E61BF483F300F82810 /* JDDebug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1C31BF483F300F82810 /* JDDebug.cpp */; };
+		BBDCB1E71BF483F300F82810 /* JDFileManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1C51BF483F300F82810 /* JDFileManager.cpp */; };
+		BBDCB1E81BF483F300F82810 /* Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1C81BF483F300F82810 /* Level.cpp */; };
+		BBDCB1E91BF483F300F82810 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1CA1BF483F300F82810 /* main.cpp */; };
+		BBDCB1EA1BF483F300F82810 /* PhysxManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1CE1BF483F300F82810 /* PhysxManager.cpp */; };
+		BBDCB1EB1BF483F300F82810 /* PointLight.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1D01BF483F300F82810 /* PointLight.cpp */; };
+		BBDCB1EC1BF483F300F82810 /* Program.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1D21BF483F300F82810 /* Program.cpp */; };
+		BBDCB1ED1BF483F300F82810 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1D41BF483F300F82810 /* README.md */; };
+		BBDCB1EE1BF483F300F82810 /* RenderComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1D51BF483F300F82810 /* RenderComponent.cpp */; };
+		BBDCB1EF1BF483F300F82810 /* RigidDynamic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1D71BF483F300F82810 /* RigidDynamic.cpp */; };
+		BBDCB1F01BF483F300F82810 /* RigidStatic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1D91BF483F300F82810 /* RigidStatic.cpp */; };
+		BBDCB1F11BF483F300F82810 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1DB1BF483F300F82810 /* Shader.cpp */; };
+		BBDCB1F21BF483F300F82810 /* Vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BBDCB1DE1BF483F300F82810 /* Vector3.cpp */; };
+		BBDCB1F41BF4863400F82810 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDCB1F31BF4863400F82810 /* OpenGL.framework */; };
+		BBDCB1F61BF48D9300F82810 /* libIL.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDCB1F51BF48D9300F82810 /* libIL.dylib */; };
+		BBDCB1F81BF48E4D00F82810 /* libILU.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBDCB1F71BF48E4D00F82810 /* libILU.1.dylib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BBDCB1A71BF4838300F82810 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		BBDCB1A91BF4838300F82810 /* GameEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBDCB1B31BF483F300F82810 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
+		BBDCB1B41BF483F300F82810 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		BBDCB1B51BF483F300F82810 /* Color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
+		BBDCB1B61BF483F300F82810 /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		BBDCB1B71BF483F300F82810 /* Component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Component.cpp; sourceTree = "<group>"; };
+		BBDCB1B81BF483F300F82810 /* Component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Component.h; sourceTree = "<group>"; };
+		BBDCB1B91BF483F300F82810 /* deferredlighting.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = deferredlighting.frag; sourceTree = "<group>"; };
+		BBDCB1BA1BF483F300F82810 /* deferredlighting.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = deferredlighting.vert; sourceTree = "<group>"; };
+		BBDCB1BB1BF483F300F82810 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		BBDCB1BC1BF483F300F82810 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
+		BBDCB1BD1BF483F300F82810 /* gbuffer.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = gbuffer.frag; sourceTree = "<group>"; };
+		BBDCB1BE1BF483F300F82810 /* gbuffer.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = gbuffer.vert; sourceTree = "<group>"; };
+		BBDCB1BF1BF483F300F82810 /* HIDManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HIDManager.cpp; sourceTree = "<group>"; };
+		BBDCB1C01BF483F300F82810 /* HIDManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HIDManager.h; sourceTree = "<group>"; };
+		BBDCB1C11BF483F300F82810 /* ImageLibManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImageLibManager.cpp; sourceTree = "<group>"; };
+		BBDCB1C21BF483F300F82810 /* ImageLibManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageLibManager.h; sourceTree = "<group>"; };
+		BBDCB1C31BF483F300F82810 /* JDDebug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JDDebug.cpp; sourceTree = "<group>"; };
+		BBDCB1C41BF483F300F82810 /* JDDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDDebug.h; sourceTree = "<group>"; };
+		BBDCB1C51BF483F300F82810 /* JDFileManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = JDFileManager.cpp; sourceTree = "<group>"; };
+		BBDCB1C61BF483F300F82810 /* JDFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDFileManager.h; sourceTree = "<group>"; };
+		BBDCB1C71BF483F300F82810 /* JDMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JDMath.h; sourceTree = "<group>"; };
+		BBDCB1C81BF483F300F82810 /* Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Level.cpp; sourceTree = "<group>"; };
+		BBDCB1C91BF483F300F82810 /* Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Level.h; sourceTree = "<group>"; };
+		BBDCB1CA1BF483F300F82810 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		BBDCB1CB1BF483F300F82810 /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mesh.h; sourceTree = "<group>"; };
+		BBDCB1CC1BF483F300F82810 /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
+		BBDCB1CD1BF483F300F82810 /* OpenGL.1 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.man; path = OpenGL.1; sourceTree = "<group>"; };
+		BBDCB1CE1BF483F300F82810 /* PhysxManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysxManager.cpp; sourceTree = "<group>"; };
+		BBDCB1CF1BF483F300F82810 /* PhysxManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysxManager.h; sourceTree = "<group>"; };
+		BBDCB1D01BF483F300F82810 /* PointLight.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PointLight.cpp; sourceTree = "<group>"; };
+		BBDCB1D11BF483F300F82810 /* PointLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointLight.h; sourceTree = "<group>"; };
+		BBDCB1D21BF483F300F82810 /* Program.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Program.cpp; sourceTree = "<group>"; };
+		BBDCB1D31BF483F300F82810 /* Program.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Program.h; sourceTree = "<group>"; };
+		BBDCB1D41BF483F300F82810 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		BBDCB1D51BF483F300F82810 /* RenderComponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderComponent.cpp; sourceTree = "<group>"; };
+		BBDCB1D61BF483F300F82810 /* RenderComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderComponent.h; sourceTree = "<group>"; };
+		BBDCB1D71BF483F300F82810 /* RigidDynamic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidDynamic.cpp; sourceTree = "<group>"; };
+		BBDCB1D81BF483F300F82810 /* RigidDynamic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidDynamic.h; sourceTree = "<group>"; };
+		BBDCB1D91BF483F300F82810 /* RigidStatic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RigidStatic.cpp; sourceTree = "<group>"; };
+		BBDCB1DA1BF483F300F82810 /* RigidStatic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidStatic.h; sourceTree = "<group>"; };
+		BBDCB1DB1BF483F300F82810 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
+		BBDCB1DC1BF483F300F82810 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
+		BBDCB1DD1BF483F300F82810 /* teapot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = teapot.h; sourceTree = "<group>"; };
+		BBDCB1DE1BF483F300F82810 /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
+		BBDCB1DF1BF483F300F82810 /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
+		BBDCB1F31BF4863400F82810 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		BBDCB1F51BF48D9300F82810 /* libIL.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIL.dylib; path = ../../../../../usr/local/Cellar/devil/1.7.8_1/lib/libIL.dylib; sourceTree = "<group>"; };
+		BBDCB1F71BF48E4D00F82810 /* libILU.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libILU.1.dylib; path = ../../../../../usr/local/Cellar/devil/1.7.8_1/lib/libILU.1.dylib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BBDCB1A61BF4838300F82810 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBDCB1F41BF4863400F82810 /* OpenGL.framework in Frameworks */,
+				BBDCB1F81BF48E4D00F82810 /* libILU.1.dylib in Frameworks */,
+				BBDCB1F61BF48D9300F82810 /* libIL.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		BBDCB1A01BF4838300F82810 = {
+			isa = PBXGroup;
+			children = (
+				BBDCB1F51BF48D9300F82810 /* libIL.dylib */,
+				BBDCB1F71BF48E4D00F82810 /* libILU.1.dylib */,
+				BBDCB1F31BF4863400F82810 /* OpenGL.framework */,
+				BBDCB1AB1BF4838300F82810 /* GameEngine */,
+				BBDCB1AA1BF4838300F82810 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BBDCB1AA1BF4838300F82810 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BBDCB1A91BF4838300F82810 /* GameEngine */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		BBDCB1AB1BF4838300F82810 /* GameEngine */ = {
+			isa = PBXGroup;
+			children = (
+				BBDCB1B31BF483F300F82810 /* Camera.cpp */,
+				BBDCB1B41BF483F300F82810 /* Camera.h */,
+				BBDCB1B51BF483F300F82810 /* Color.cpp */,
+				BBDCB1B61BF483F300F82810 /* Color.h */,
+				BBDCB1B71BF483F300F82810 /* Component.cpp */,
+				BBDCB1B81BF483F300F82810 /* Component.h */,
+				BBDCB1B91BF483F300F82810 /* deferredlighting.frag */,
+				BBDCB1BA1BF483F300F82810 /* deferredlighting.vert */,
+				BBDCB1BB1BF483F300F82810 /* Entity.cpp */,
+				BBDCB1BC1BF483F300F82810 /* Entity.h */,
+				BBDCB1BD1BF483F300F82810 /* gbuffer.frag */,
+				BBDCB1BE1BF483F300F82810 /* gbuffer.vert */,
+				BBDCB1BF1BF483F300F82810 /* HIDManager.cpp */,
+				BBDCB1C01BF483F300F82810 /* HIDManager.h */,
+				BBDCB1C11BF483F300F82810 /* ImageLibManager.cpp */,
+				BBDCB1C21BF483F300F82810 /* ImageLibManager.h */,
+				BBDCB1C31BF483F300F82810 /* JDDebug.cpp */,
+				BBDCB1C41BF483F300F82810 /* JDDebug.h */,
+				BBDCB1C51BF483F300F82810 /* JDFileManager.cpp */,
+				BBDCB1C61BF483F300F82810 /* JDFileManager.h */,
+				BBDCB1C71BF483F300F82810 /* JDMath.h */,
+				BBDCB1C81BF483F300F82810 /* Level.cpp */,
+				BBDCB1C91BF483F300F82810 /* Level.h */,
+				BBDCB1CA1BF483F300F82810 /* main.cpp */,
+				BBDCB1CB1BF483F300F82810 /* Mesh.h */,
+				BBDCB1CC1BF483F300F82810 /* Model.h */,
+				BBDCB1CD1BF483F300F82810 /* OpenGL.1 */,
+				BBDCB1CE1BF483F300F82810 /* PhysxManager.cpp */,
+				BBDCB1CF1BF483F300F82810 /* PhysxManager.h */,
+				BBDCB1D01BF483F300F82810 /* PointLight.cpp */,
+				BBDCB1D11BF483F300F82810 /* PointLight.h */,
+				BBDCB1D21BF483F300F82810 /* Program.cpp */,
+				BBDCB1D31BF483F300F82810 /* Program.h */,
+				BBDCB1D41BF483F300F82810 /* README.md */,
+				BBDCB1D51BF483F300F82810 /* RenderComponent.cpp */,
+				BBDCB1D61BF483F300F82810 /* RenderComponent.h */,
+				BBDCB1D71BF483F300F82810 /* RigidDynamic.cpp */,
+				BBDCB1D81BF483F300F82810 /* RigidDynamic.h */,
+				BBDCB1D91BF483F300F82810 /* RigidStatic.cpp */,
+				BBDCB1DA1BF483F300F82810 /* RigidStatic.h */,
+				BBDCB1DB1BF483F300F82810 /* Shader.cpp */,
+				BBDCB1DC1BF483F300F82810 /* Shader.h */,
+				BBDCB1DD1BF483F300F82810 /* teapot.h */,
+				BBDCB1DE1BF483F300F82810 /* Vector3.cpp */,
+				BBDCB1DF1BF483F300F82810 /* Vector3.h */,
+			);
+			path = GameEngine;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		BBDCB1A81BF4838300F82810 /* GameEngine */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBDCB1B01BF4838300F82810 /* Build configuration list for PBXNativeTarget "GameEngine" */;
+			buildPhases = (
+				BBDCB1A51BF4838300F82810 /* Sources */,
+				BBDCB1A61BF4838300F82810 /* Frameworks */,
+				BBDCB1A71BF4838300F82810 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GameEngine;
+			productName = GameEngine;
+			productReference = BBDCB1A91BF4838300F82810 /* GameEngine */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		BBDCB1A11BF4838300F82810 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0710;
+				ORGANIZATIONNAME = "Joseph Despain";
+				TargetAttributes = {
+					BBDCB1A81BF4838300F82810 = {
+						CreatedOnToolsVersion = 7.1.1;
+					};
+				};
+			};
+			buildConfigurationList = BBDCB1A41BF4838300F82810 /* Build configuration list for PBXProject "GameEngine" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = BBDCB1A01BF4838300F82810;
+			productRefGroup = BBDCB1AA1BF4838300F82810 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				BBDCB1A81BF4838300F82810 /* GameEngine */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BBDCB1A51BF4838300F82810 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BBDCB1E81BF483F300F82810 /* Level.cpp in Sources */,
+				BBDCB1E31BF483F300F82810 /* Entity.cpp in Sources */,
+				BBDCB1F01BF483F300F82810 /* RigidStatic.cpp in Sources */,
+				BBDCB1E01BF483F300F82810 /* Camera.cpp in Sources */,
+				BBDCB1E61BF483F300F82810 /* JDDebug.cpp in Sources */,
+				BBDCB1F21BF483F300F82810 /* Vector3.cpp in Sources */,
+				BBDCB1EE1BF483F300F82810 /* RenderComponent.cpp in Sources */,
+				BBDCB1EF1BF483F300F82810 /* RigidDynamic.cpp in Sources */,
+				BBDCB1E71BF483F300F82810 /* JDFileManager.cpp in Sources */,
+				BBDCB1E21BF483F300F82810 /* Component.cpp in Sources */,
+				BBDCB1E51BF483F300F82810 /* ImageLibManager.cpp in Sources */,
+				BBDCB1F11BF483F300F82810 /* Shader.cpp in Sources */,
+				BBDCB1E11BF483F300F82810 /* Color.cpp in Sources */,
+				BBDCB1E91BF483F300F82810 /* main.cpp in Sources */,
+				BBDCB1EC1BF483F300F82810 /* Program.cpp in Sources */,
+				BBDCB1ED1BF483F300F82810 /* README.md in Sources */,
+				BBDCB1EB1BF483F300F82810 /* PointLight.cpp in Sources */,
+				BBDCB1EA1BF483F300F82810 /* PhysxManager.cpp in Sources */,
+				BBDCB1E41BF483F300F82810 /* HIDManager.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BBDCB1AE1BF4838300F82810 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = _DEBUG;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/assimp/3.1.1/include,
+					/usr/local/Cellar/devil/1.7.8_1/include,
+					/usr/local/Cellar/glfw3/3.1.2/include,
+					/usr/local/Cellar/glm/0.9.7.1/include,
+					/usr/local/Cellar/glew/1.12.0/include,
+					"/usr/local/CustomCellar/physx-3.3.2_osx_sdk_core/Include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/glfw3/3.1.2/lib,
+					/usr/local/Cellar/devil/1.7.8_1/lib,
+					/usr/local/Cellar/glew/1.12.0/lib,
+					/usr/local/Cellar/glm/0.9.7.1/lib,
+					/usr/local/Cellar/assimp/3.1.1/lib,
+					"/usr/local/CustomCellar/physx-3.3.2_osx_sdk_core/Lib/osx64",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = (
+					"-lglew",
+					"-lassimp",
+					"-lglfw3",
+					"-lPhysX3",
+					"-lPhysX3Common",
+					"-lPhysX3Cooking",
+					"-lSimulationController",
+					"-lPhysX3Extensions",
+					"-lPhysX3Vehicle",
+					"-lPhysXProfileSDK",
+					"-lPhysXVisualDebuggerSDK",
+					"-lPvdRuntime",
+					"-lLowLevel",
+					"-lLowLevelCloth",
+					"-lPhysX3CharacterKinematic",
+					"-lPxTask",
+					"-lSceneQuery",
+					"-lILUT",
+					"-IILU",
+					"-lIL",
+				);
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		BBDCB1AF1BF4838300F82810 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				"GCC_PREPROCESSOR_DEFINITIONS[arch=*]" = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/Cellar/assimp/3.1.1/include,
+					/usr/local/Cellar/devil/1.7.8_1/include,
+					/usr/local/Cellar/glfw3/3.1.2/include,
+					/usr/local/Cellar/glm/0.9.7.1/include,
+					/usr/local/Cellar/glew/1.12.0/include,
+					"/usr/local/CustomCellar/physx-3.3.2_osx_sdk_core/Include",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/Cellar/glfw3/3.1.2/lib,
+					/usr/local/Cellar/devil/1.7.8_1/lib,
+					/usr/local/Cellar/glew/1.12.0/lib,
+					/usr/local/Cellar/glm/0.9.7.1/lib,
+					/usr/local/Cellar/assimp/3.1.1/lib,
+					"/usr/local/CustomCellar/physx-3.3.2_osx_sdk_core/Lib/osx64",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
+				OTHER_LDFLAGS = (
+					"-lglew",
+					"-lassimp",
+					"-lglfw3",
+					"-lPhysX3",
+					"-lPhysX3Common",
+					"-lPhysX3Cooking",
+					"-lSimulationController",
+					"-lPhysX3Extensions",
+					"-lPhysX3Vehicle",
+					"-lPhysXProfileSDK",
+					"-lPhysXVisualDebuggerSDK",
+					"-lPvdRuntime",
+					"-lLowLevel",
+					"-lLowLevelCloth",
+					"-lPhysX3CharacterKinematic",
+					"-lPxTask",
+					"-lSceneQuery",
+					"-lILUT",
+					"-IILU",
+					"-lIL",
+				);
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		BBDCB1B11BF4838300F82810 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/devil/1.7.8_1/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		BBDCB1B21BF4838300F82810 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/usr/local/Cellar/devil/1.7.8_1/lib,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		BBDCB1A41BF4838300F82810 /* Build configuration list for PBXProject "GameEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBDCB1AE1BF4838300F82810 /* Debug */,
+				BBDCB1AF1BF4838300F82810 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBDCB1B01BF4838300F82810 /* Build configuration list for PBXNativeTarget "GameEngine" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BBDCB1B11BF4838300F82810 /* Debug */,
+				BBDCB1B21BF4838300F82810 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = BBDCB1A11BF4838300F82810 /* Project object */;
+}
