@@ -44,6 +44,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		BB1BED831C2B156800373B04 /* Cubeobj.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cubeobj.mtl; sourceTree = "<group>"; };
+		BB1BED841C2B156800373B04 /* Cubeobj.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cubeobj.obj; sourceTree = "<group>"; };
+		BB1BED851C2B156800373B04 /* deferredlighting.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = deferredlighting.frag; sourceTree = "<group>"; };
+		BB1BED861C2B156800373B04 /* deferredlighting.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = deferredlighting.vert; sourceTree = "<group>"; };
+		BB1BED871C2B156800373B04 /* gbuffer.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = gbuffer.frag; sourceTree = "<group>"; };
+		BB1BED881C2B156800373B04 /* gbuffer.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = gbuffer.vert; sourceTree = "<group>"; };
+		BB1BED891C2B156800373B04 /* nanosuit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = nanosuit; sourceTree = "<group>"; };
+		BB1BED8A1C2B156800373B04 /* negx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = negx.jpg; sourceTree = "<group>"; };
+		BB1BED8B1C2B156800373B04 /* negy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = negy.jpg; sourceTree = "<group>"; };
+		BB1BED8C1C2B156800373B04 /* negz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = negz.jpg; sourceTree = "<group>"; };
+		BB1BED8D1C2B156800373B04 /* Pan */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Pan; sourceTree = "<group>"; };
+		BB1BED8E1C2B156800373B04 /* Pan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Pan.jpg; sourceTree = "<group>"; };
+		BB1BED8F1C2B156800373B04 /* posx.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = posx.jpg; sourceTree = "<group>"; };
+		BB1BED901C2B156800373B04 /* posy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = posy.jpg; sourceTree = "<group>"; };
+		BB1BED911C2B156800373B04 /* posz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = posz.jpg; sourceTree = "<group>"; };
+		BB1BED921C2B156800373B04 /* simple.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = simple.frag; sourceTree = "<group>"; };
+		BB1BED931C2B156800373B04 /* simple.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = simple.vert; sourceTree = "<group>"; };
+		BB1BED941C2B156800373B04 /* Sphere.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = Sphere.mtl; sourceTree = "<group>"; };
+		BB1BED951C2B156800373B04 /* Sphere.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Sphere.obj; sourceTree = "<group>"; };
 		BBDCB1A91BF4838300F82810 /* GameEngine */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GameEngine; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBDCB1B31BF483F300F82810 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Camera.cpp; sourceTree = "<group>"; };
 		BBDCB1B41BF483F300F82810 /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
@@ -87,7 +106,6 @@
 		BBDCB1DA1BF483F300F82810 /* RigidStatic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RigidStatic.h; sourceTree = "<group>"; };
 		BBDCB1DB1BF483F300F82810 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Shader.cpp; sourceTree = "<group>"; };
 		BBDCB1DC1BF483F300F82810 /* Shader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shader.h; sourceTree = "<group>"; };
-		BBDCB1DD1BF483F300F82810 /* teapot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = teapot.h; sourceTree = "<group>"; };
 		BBDCB1DE1BF483F300F82810 /* Vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Vector3.cpp; sourceTree = "<group>"; };
 		BBDCB1DF1BF483F300F82810 /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vector3.h; sourceTree = "<group>"; };
 		BBDCB1F31BF4863400F82810 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
@@ -109,9 +127,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BB1BED821C2B153E00373B04 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BB1BED831C2B156800373B04 /* Cubeobj.mtl */,
+				BB1BED841C2B156800373B04 /* Cubeobj.obj */,
+				BB1BED851C2B156800373B04 /* deferredlighting.frag */,
+				BB1BED861C2B156800373B04 /* deferredlighting.vert */,
+				BB1BED871C2B156800373B04 /* gbuffer.frag */,
+				BB1BED881C2B156800373B04 /* gbuffer.vert */,
+				BB1BED891C2B156800373B04 /* nanosuit */,
+				BB1BED8A1C2B156800373B04 /* negx.jpg */,
+				BB1BED8B1C2B156800373B04 /* negy.jpg */,
+				BB1BED8C1C2B156800373B04 /* negz.jpg */,
+				BB1BED8D1C2B156800373B04 /* Pan */,
+				BB1BED8E1C2B156800373B04 /* Pan.jpg */,
+				BB1BED8F1C2B156800373B04 /* posx.jpg */,
+				BB1BED901C2B156800373B04 /* posy.jpg */,
+				BB1BED911C2B156800373B04 /* posz.jpg */,
+				BB1BED921C2B156800373B04 /* simple.frag */,
+				BB1BED931C2B156800373B04 /* simple.vert */,
+				BB1BED941C2B156800373B04 /* Sphere.mtl */,
+				BB1BED951C2B156800373B04 /* Sphere.obj */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		BBDCB1A01BF4838300F82810 = {
 			isa = PBXGroup;
 			children = (
+				BB1BED821C2B153E00373B04 /* Resources */,
 				BBDCB1F51BF48D9300F82810 /* libIL.dylib */,
 				BBDCB1F71BF48E4D00F82810 /* libILU.1.dylib */,
 				BBDCB1F31BF4863400F82810 /* OpenGL.framework */,
@@ -173,7 +218,6 @@
 				BBDCB1DA1BF483F300F82810 /* RigidStatic.h */,
 				BBDCB1DB1BF483F300F82810 /* Shader.cpp */,
 				BBDCB1DC1BF483F300F82810 /* Shader.h */,
-				BBDCB1DD1BF483F300F82810 /* teapot.h */,
 				BBDCB1DE1BF483F300F82810 /* Vector3.cpp */,
 				BBDCB1DF1BF483F300F82810 /* Vector3.h */,
 			);
@@ -461,6 +505,7 @@
 				BBDCB1B21BF4838300F82810 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

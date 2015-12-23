@@ -8,7 +8,7 @@
 
 #ifndef __OpenGL__ImageLibManager__
 #define __OpenGL__ImageLibManager__
-
+#include <GL/glew.h>
 #include <OpenGL/glu.h>
 
 #include <IL/il.h>
@@ -17,6 +17,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include <vector>
+
 
 class ImageLibManager
 {
@@ -26,6 +28,7 @@ public:
     static ImageLibManager* Instance();
     void Init();
     GLuint loadImage(const char* theFileName);
+    GLuint loadCubemap(std::vector<const GLchar*> faces);
 private:
     
     ImageLibManager();

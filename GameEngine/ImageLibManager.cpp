@@ -41,6 +41,65 @@ void ImageLibManager::Init()
     ilutRenderer(ILUT_OPENGL);
 }
 
+GLuint ImageLibManager::loadCubemap(std::vector<const GLchar*> faces)
+{
+    GLuint textureID;
+    glGenTextures(1, &textureID);
+    glActiveTexture(GL_TEXTURE0);
+    
+    glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+    
+    for(GLuint i = 0; i < faces.size(); i++)
+    {
+        uint image = ilGenImage();
+        
+        // Load with DevIL
+        ilBindImage( image );
+        if( !ilLoadImage((const ILstring)faces[i]))
+        {
+            std::cout << "ERROR: Failed to load image " << std::endl;
+        }
+        
+        ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
+        
+        
+        // Fetch info from DevIL
+        int width   = ilGetInteger( IL_IMAGE_WIDTH );
+        int height  = ilGetInteger( IL_IMAGE_HEIGHT );
+        uint format = ilGetInteger( IL_IMAGE_FORMAT );
+        uint type   = ilGetInteger( IL_IMAGE_TYPE );
+        
+        // Send data to OpenGL
+        glTexImage2D(
+                     GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+                     0,
+                     GL_RGB,
+                     width,
+                     height,
+                     0,
+                     format,
+                     type,
+                     ilGetData() );
+        
+
+        // Get rid of DevIL data
+        ilDeleteImage( image );
+    }
+
+     glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
+
+    //glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+    
+    return textureID;
+}
+
+
 GLuint ImageLibManager::loadImage(const char* theFileName)
 {
     ILuint imageID;				// Create an image ID as a ULuint

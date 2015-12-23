@@ -14,6 +14,7 @@ struct Light {
     
     float Linear;
     float Quadratic;
+    float intensity
 };
 
 uniform vec3 viewPos;
@@ -30,7 +31,9 @@ vec2 CalcTexCoord()
     return gl_FragCoord.xy/(screensize);
 }
 
-/*
+
+
+/* Blinn Phong
  void main()
  {
  
@@ -159,7 +162,6 @@ vec3 ImportanceSampleGGX( vec2 Xi, float Roughness, vec3 N )
 
 vec2 panoramaCon(vec3 ray)
 {
-    // Note: Two arguments of atan is atan2
     return vec2(0.5 + 0.5*atan(ray.x, -ray.z)/3.14159, 1.0 - acos(ray.y)/3.14159);
 }
 
@@ -232,19 +234,10 @@ void main()
         
         if(NdotL > 0.0)
         {
-            vec3 eyeDir = viewPos;
-            
             
             // Lambertian Diffuse Reflection
-            //TODO multiply by intensity
-            diffuse = max(dot(Normal, lightDirection), 0.0) * Diffuse * light.Color * 2;
+            diffuse = max(dot(Normal, lightDirection), 0.0) * Diffuse * light.Color * intensity;
             
-            // calculate intermediary values
-            //  vec3 halfVector = normalize(lightDirection + eyeDir);
-            //  float NdotH = max(dot(normal, halfVector), 0.0);
-            //  float NdotV = max(dot(normal, eyeDir), 0.0);
-            //  float VdotH = max(dot(eyeDir, halfVector), 0.0);
-            //  float mSquared = roughnessValue * roughnessValue;
             
             //float Rs = (FresnelSchlick(VdotH) * GGXSmith(NdotL,NdotV,mSquared) * GGXNDF(NdotH,mSquared)) / (NdotV * NdotL * 3.14);
             //  spec = Specular * (light.Color * NdotL * (k + Rs * (1.0 - k)));

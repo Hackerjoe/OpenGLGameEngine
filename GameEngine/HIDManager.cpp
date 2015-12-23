@@ -7,6 +7,7 @@
 //
 
 #include "HIDManager.h"
+#include <iostream>
 
 HIDManager* HIDManager::pInstance = nullptr;
 bool* HIDManager::KeyStates = new bool[256];
@@ -32,24 +33,26 @@ HIDManager* HIDManager::Instance()
     return pInstance;
 }
 
-void HIDManager::KeyBoardFunc(unsigned char key, int x, int y)
+void HIDManager::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-    KeyStates[key] = true;
+    std::cout << action << std::endl;
+    
+    if (action == GLFW_PRESS)
+        KeyStates[key] = true;
+    
+    if(action == GLFW_RELEASE)
+        KeyStates[key] = false;
+    
+
 }
 
-void HIDManager::KeyBoardUpFunc(unsigned char key, int x, int y)
+void HIDManager::character_callback(GLFWwindow* window, unsigned int codepoint)
 {
-    KeyStates[key] = false;
+    std::cout << codepoint << std::endl;
+    KeyStates[codepoint] = true;
 }
 
-bool HIDManager::GetKey(char key)
+bool HIDManager::GetKey(int key)
 {
-    if (KeyStates[key] == true)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return KeyStates[key];
 }

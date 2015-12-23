@@ -12,7 +12,7 @@
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
+#include "HIDManager.h"
 
 
 Program::Program()
@@ -21,6 +21,7 @@ Program::Program()
     ScreenHeight = 900;
     testx = 0;
     testy = 0;
+    testz = -1;
 }
 
 
@@ -93,7 +94,7 @@ bool Program::Init(int argc, char** argv)
     
     //Load models using assimp.
     // Load Nanosuit model (Nanosuit model is from Crysis 2).
-    Nanosuit = new Model("Nanosuit/nanosuit.obj");
+    Nanosuit = new Model("Cubeobj.obj");
     
     // Load sphere model for the point lights.
     SphereModel = new Model("sphere.obj");
@@ -154,11 +155,23 @@ bool Program::Init(int argc, char** argv)
     // Create projection and view.
     projection = glm::perspective(45.0f, (float)ScreenWidth/(float)ScreenHeight, 0.1f, 100.0f);
     view = glm::lookAt(glm::vec3(0, 0, 4), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    
+    vector<const GLchar*> faces;
+    faces.push_back("posx.jpg");
+    faces.push_back("negx.jpg");
+    faces.push_back("posy.jpg");
+    faces.push_back("negy.jpg");
+    faces.push_back("posz.jpg");
+    faces.push_back("negz.jpg");
+    
+    GLuint cubemapTexture = ImageLibManager::Instance()->loadCubemap(faces);//loadCubemap(faces);
+    
     Panorama = new Texture();
-    Panorama->id = ImageLibManager::Instance()->loadImage("Panorama/austria.hdr");
+    Panorama->id = cubemapTexture;
     
-
-    
+    //Keyboard callback setup
+    glfwSetKeyCallback(window, HIDManager::Instance()->key_callback);
+    //glfwSetCharCallback(window, HIDManager::Instance()->character_callback);
     return true;
 }
 
@@ -167,7 +180,11 @@ void Program::mainLoop()
     //NBFrames and last time is for calculating frame milliseconds.
     NBFrames = 0;
     LastTime = glfwGetTime();
-    //ImageLibManager::Instance()->loadImage("test.png");
+    
+    if(HIDManager::Instance()->GetKey('w') == true)
+    {
+        
+    }
     //While window is open render.
     while (!glfwWindowShouldClose(window))
     {
@@ -178,29 +195,23 @@ void Program::mainLoop()
 void Program::render()
 {
     
-    // To move the camera.
-    if(testx <= 0.0)
+ 
+    if(HIDManager::Instance()->GetKey(GLFW_KEY_W) == true)
     {
-        bSwitch = false;
+        
+        testz -=0.01;
     }
-    else if(testx >= 1.0)
+    if(HIDManager::Instance()->GetKey(GLFW_KEY_S) == true)
     {
-        bSwitch = true;
+        
+        testz +=0.01;
     }
+   
     
-    if (bSwitch == false)
-    {
-        testx += 0.001;
-    }
-    else
-    {
-        testx -= 0.001;
-    }
-    
-    testy += 0.005;
+    testx += 0.01;
     
     // Move Camera.
-    view = glm::lookAt(glm::vec3(0, 1, 2), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    view = glm::lookAt(glm::vec3(0, 1, 2), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     
     //Set gbuffer to draw to.
     glBindFramebuffer(GL_DRAW_FRAMEBUFFER, gBuffer);
@@ -246,7 +257,7 @@ void Program::render()
     glfwPollEvents();
     
     //Calc how long to calculate frame
-    CalcMS();
+    //CalcMS();
     
 
     
@@ -275,10 +286,11 @@ void Program::GeoPass()
     
     // Create Model 4x4Matix for nanosuit model
     glm::mat4 model;
-    model = glm::translate(model, glm::vec3(0, -1.75, 0.1f)); // Translate it down a bit so it's at the center of the scene
-    model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// It's a bit too big for our scene, so scale it down
+    model = glm::translate(model, glm::vec3(0, 0.0f, -0.3f)); // Translate it down a bit so it's at the center of the scene
+    model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));	// It's a bit too big for our scene, so scale it down
     
-    model = glm::rotate(model, testy, glm::vec3(0,1,0));
+    
+    //model = glm::rotate(model, -testx, glm::vec3(1,0,0));
     
     // Insert values into shader progam
     glUniformMatrix4fv(glGetUniformLocation(shaderGeometryPass->GetShader(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
@@ -327,7 +339,7 @@ void Program::StencilPass()
     
     // Create our model 4x4 matrix.
     glm::mat4 model;
-    model = glm::translate(model, glm::vec3(0.0f, 1, .7));
+    model = glm::translate(model, glm::vec3(0.0f, 0, .7));
     model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));
     
     //Grab a basic shader to render the spheres.
@@ -348,7 +360,7 @@ void Program::StencilPass()
     glUniformMatrix4fv(glGetUniformLocation(stencilPassShader->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(light2));
     
     // Draw light two.
-    SphereModel->Draw(*stencilPassShader);
+    //SphereModel->Draw(*stencilPassShader);
     
     /*glm::mat4 light3;
     light3 = glm::translate(light3, glm::vec3(0.0f, 0, 1));
@@ -375,7 +387,7 @@ void Program::LightPass()
     glBindTexture(GL_TEXTURE_2D, gAlbedoSpec);
     
     glActiveTexture(GL_TEXTURE3);
-    glBindTexture(GL_TEXTURE_2D, Panorama->id);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, Panorama->id);
     
     
     // Stencil out what we dont want.
@@ -413,26 +425,26 @@ void Program::LightPass()
     const GLfloat quadratic = 1.0;
     glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Linear"), linear);
     glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "ligh.Quadratic"), quadratic);
+    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "light.intensity"), 2);
     
     // This will soon be its own buffer.
     // The roughness value of the model.
     glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "roughnessValue"),0.0f);
     // And F0 and k values for fresnel.
-    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "F0"), 1.0f);
+    glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "F0"), 0.0);
     //glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "k"),0.2f);
     
-    std::cout << testx <<endl;
     
     // Create 4x4 matrix for sphere model/light1.
     glm::mat4 light1;
-    light1 = glm::translate(light1, glm::vec3(0.0f,1,1));
+    light1 = glm::translate(light1, glm::vec3(0.0f,0,1));
     light1 = glm::scale(light1, glm::vec3(1.0f, 1.0f, 1.0f));
     
     // The color of the light in for the shader.
     glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Color"), 1, glm::value_ptr(glm::vec3(1,1,1)));
     // Light position
     glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Position"), 1, glm::value_ptr(glm::vec3(0.0f, 1, 1)));
-    // Light Model matrix.
+    // Light Model matrix
     glUniformMatrix4fv(glGetUniformLocation(shaderLightingPass->GetShader(), "model"), 1, GL_FALSE, glm::value_ptr(light1));
     
     // Draw light1
@@ -523,7 +535,7 @@ void Program::RenderQuad()
 
 Program::~Program()
 {
-    PhysxManager::Instance()->ShutDown();
+    //PhysxManager::Instance()->ShutDown();
     
     
     
