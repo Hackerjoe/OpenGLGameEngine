@@ -1,0 +1,31 @@
+﻿Build started 1/2/2016 8:29:30 PM.
+     1>Project "C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\OpenGLEngine\OpenGLEngine.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\Despain\Documents\Libs\assimp-3.1.1-win-binaries\include" /I"C:\Users\Despain\Documents\PhysX-3.3-master\PhysXSDK\Include" /I"C:\Users\Despain\Documents\Libs\glfw64\glfw-3.1.1.bin.WIN64\include" /I"C:\Users\Despain\Documents\Libs\GLEW\glew-1.13.0\include" /IC:\Users\Despain\Documents\Libs\DevIL\include /IC:\Users\Despain\Documents\Libs\glm /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt ImageLibManager.cpp
+         ImageLibManager.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\x64\Debug\OpenGLEngine.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Despain\Documents\Libs\glfw64\glfw-3.1.1.bin.WIN64\lib-vc2012" /LIBPATH:"C:\Users\Despain\Documents\Libs\GLEW\glew-1.13.0\lib\Release\x64" /LIBPATH:C:\Users\Despain\Documents\Libs\DevIL /LIBPATH:"C:\Users\Despain\Documents\Libs\assimp-3.1.1-win-binaries\lib64" /LIBPATH:"C:\Users\Despain\Documents\PhysX-3.3-master\PhysXSDK\Lib\vc12win64" opengl32.lib glu32.lib PhysX3DEBUG_x64.lib PhysX3CommonDEBUG_x64.lib PhysX3ExtensionsDEBUG.lib assimp.lib DevIL.lib ILU.lib ILUT.lib glew32.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\x64\Debug\OpenGLEngine.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\x64\Debug\OpenGLEngine.lib" /MACHINE:X64 x64\Debug\Camera.obj
+         x64\Debug\Color.obj
+         x64\Debug\Component.obj
+         x64\Debug\entity.obj
+         x64\Debug\HIDManager.obj
+         x64\Debug\ImageLibManager.obj
+         x64\Debug\JDFileManager.obj
+         x64\Debug\Level.obj
+         x64\Debug\main.obj
+         x64\Debug\MyEntity.obj
+         x64\Debug\PhysxManager.obj
+         x64\Debug\PointLight.obj
+         x64\Debug\PointLightSystem.obj
+         x64\Debug\Program.obj
+         x64\Debug\RenderComponent.obj
+         x64\Debug\RigidDynamic.obj
+         x64\Debug\RigidStatic.obj
+         x64\Debug\Shader.obj
+         x64\Debug\Vector3.obj
+         OpenGLEngine.vcxproj -> C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\x64\Debug\OpenGLEngine.exe
+     1>Done Building Project "C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\OpenGLEngine\OpenGLEngine.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.57
