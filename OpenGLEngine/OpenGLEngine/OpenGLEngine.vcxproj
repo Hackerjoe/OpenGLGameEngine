@@ -34,7 +34,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>NotSet</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -98,7 +98,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Despain\Documents\Libs\assimp-3.1.1-win-binaries\include;C:\Users\Despain\Documents\PhysX-3.3-master\PhysXSDK\Include;C:\Users\Despain\Documents\Libs\glfw64\glfw-3.1.1.bin.WIN64\include;C:\Users\Despain\Documents\Libs\GLEW\glew-1.13.0\include;C:\Users\Despain\Documents\Libs\DevIL\include;C:\Users\Despain\Documents\Libs\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Despain\Documents\Libs\assimp-3.1.1-win-binaries\include;C:\Users\Despain\Documents\PhysX-3.3-master\PhysXSDK\Include;C:\Users\Despain\Documents\Libs\glfw64\glfw-3.1.1.bin.WIN64\include;C:\Users\Despain\Documents\Libs\GLEW\glew-1.13.0\include;C:\Users\Despain\Documents\Libs\DevIL\include;C:\Users\Despain\Documents\Libs\glm9.7\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -147,6 +147,7 @@
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="entity.cpp" />
+    <ClCompile Include="FilterBaker.cpp" />
     <ClCompile Include="HIDManager.cpp" />
     <ClCompile Include="ImageLibManager.cpp" />
     <ClCompile Include="JDFileManager.cpp" />
@@ -158,16 +159,19 @@
     <ClCompile Include="PointLightSystem.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="RenderComponent.cpp" />
+    <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="RigidDynamic.cpp" />
     <ClCompile Include="RigidStatic.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="WindowManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="entity.h" />
+    <ClInclude Include="FilterBaker.h" />
     <ClInclude Include="HIDManager.h" />
     <ClInclude Include="ImageLibManager.h" />
     <ClInclude Include="JDFileManager.h" />
@@ -181,10 +185,12 @@
     <ClInclude Include="PointLightSystem.h" />
     <ClInclude Include="Program.h" />
     <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="RenderManager.h" />
     <ClInclude Include="RigidDynamic.h" />
     <ClInclude Include="RigidStatic.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="WindowManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

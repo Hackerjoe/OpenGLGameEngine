@@ -48,6 +48,11 @@ public:
     float testx;
     float testy;
     float testz;
+
+	int MipLevel;
+
+	bool keydown;
+	bool keydown1;
     
     GLFWwindow* window;
     

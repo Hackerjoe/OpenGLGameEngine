@@ -254,3 +254,78 @@ GLuint ImageLibManager::loadImage(const char* theFileName)
 
 	return textureID; // Return the GLuint to the texture so you can use it!
 }
+
+bool ImageLibManager::saveTextureToFile(GLuint textureID, std::string fileName)
+{
+	// Bind texture
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	// Get Texture Information
+	GLint width,height,internalFormat;
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_COMPONENTS, &internalFormat);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &width);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &height);
+
+	
+	GLint numBytes = 0;
+	switch(internalFormat) 
+	{
+	case GL_RGB:
+		numBytes = width * height * 3;
+		break;
+	case GL_RGBA:
+		numBytes = width * height * 4;
+		break;
+	default: 
+		break;
+	}
+
+	if(numBytes)
+	{
+		// Allocate space for our pixel data.
+		unsigned char *pixels = (unsigned char*)malloc(numBytes); // allocate image data into RAM
+
+		// Get pixel data!
+		glGetTexImage(GL_TEXTURE_2D, 0, internalFormat, GL_UNSIGNED_BYTE, pixels);
+
+		// Unbind the texture.
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		// Create DEVIL image.
+		ILuint imageID = ilGenImage();
+		ilBindImage(imageID);
+
+		ilTexImage(
+
+			width,
+			height,
+
+			1,
+
+			3,  
+
+			IL_RGB,  
+
+			IL_UNSIGNED_BYTE, 
+
+			pixels  
+
+			) ;
+
+		// allow openIL to overwrite the file
+		ilEnable(IL_FILE_OVERWRITE);
+		
+		if(!ilSave(IL_PNG, fileName.c_str()))
+		{
+			free(pixels);
+			return false;
+		}
+		else
+		{
+			free(pixels);
+			return true;
+		}
+	}
+
+	return false;
+}

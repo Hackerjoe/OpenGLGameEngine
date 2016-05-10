@@ -13,12 +13,12 @@ Shader::Shader(std::string vert, std::string frag)
 {
 	if (!vert.empty() && !frag.empty())
 	{
+		VertFileName = new std::string(vert);
+		FragFileName = new std::string(frag);
 		CreateShader(vert, frag);
 	}
 	else
-	{
 		CreateShader("Shaders/NullShader.vert","Shaders/NullShader.frag");
-	}
 
 }
 
@@ -27,10 +27,14 @@ Shader::Shader()
 	CreateShader("Shaders/NullShader.vert","Shaders/NullShader.frag");
 }
 
+
+
+
 void Shader::CreateShader(std::string vert, std::string frag)
 {
 	GLuint vertexShader;
 	GLuint fragmentShader;
+	// OpenGL is C api so turn stuff into C style strings.
 	char* vertShader = _strdup(vert.c_str());
 
 	char* fragShader = _strdup(frag.c_str());
@@ -39,12 +43,11 @@ void Shader::CreateShader(std::string vert, std::string frag)
 	{
 		char *vs = NULL, *fs = NULL;
 
-
+		// Create Shaders
 		vertexShader = glCreateShader(GL_VERTEX_SHADER);
 		fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-
-
+		//Read Shader files.
 		vs = JDFileManager::Instance()->ReadFile(vertShader);
 		fs = JDFileManager::Instance()->ReadFile(fragShader);
 
@@ -56,28 +59,36 @@ void Shader::CreateShader(std::string vert, std::string frag)
 			printf("Shader Null");
 		}
 
+		// Put in the shader sources.
 		glShaderSource(vertexShader, 1, &vv, NULL);
 		glShaderSource(fragmentShader, 1, &ff, NULL);
 
+		// Free our allocated char pointers.
 		free(vs);
 		free(fs);
 
+		// Compile glsl shaders.
 		glCompileShader(vertexShader);
 		glCompileShader(fragmentShader);
-
+		
+		// Print Errors if there are some.
 		printShaderInfoLog(vertexShader);
-
 		printShaderInfoLog(fragmentShader);
 
+		// Create program.
 		ShaderProgram = glCreateProgram();
 
+		// Attach shaders to program.
 		glAttachShader(this->ShaderProgram, fragmentShader);
 		glAttachShader(this->ShaderProgram, vertexShader);
 
+		//Link
 		glLinkProgram(this->ShaderProgram);
 
+		// Check for errors in program.
 		printProgramInfoLog(this->ShaderProgram);
 
+		// Delete our shaders they are in the program.
 		glDeleteShader(vertexShader);
 		glDeleteShader(fragmentShader);
 	}
@@ -100,9 +111,6 @@ void Shader::printShaderInfoLog(GLuint obj)
 		printf("printShaderInfoLog: %s\n", infoLog);
 		free(infoLog);
 	}
-	else{
-		printf("Shader Info Log: OK\n");
-	}
 }
 
 void Shader::printProgramInfoLog(GLuint obj)
@@ -117,9 +125,6 @@ void Shader::printProgramInfoLog(GLuint obj)
 		glGetProgramInfoLog(obj, infologLength, &charsWritten, infoLog);
 		printf("printProgramInfoLog: %s\n", infoLog);
 		free(infoLog);
-	}
-	else{
-		printf("Program Info Log: OK\n");
 	}
 }
 

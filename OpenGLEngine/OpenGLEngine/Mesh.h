@@ -89,7 +89,7 @@ private:
         glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, Bitangent));
         
         glBindVertexArray(0);
-        //cout << &textures << endl;
+
     }
     
 public:
@@ -106,6 +106,22 @@ public:
         // Now that we have all the required data, set the vertex buffers and its attribute pointers.
         this->setupMesh();
     }
+
+	Mesh(const Mesh& other)
+	{
+		this->vertices = vector<Vertex>(other.vertices);
+		this->indices = vector<GLuint>(other.indices);
+		this->textures = vector<Texture>(other.textures);
+
+		this->setupMesh();
+	}
+	
+	~Mesh()
+	{
+		glDeleteVertexArrays(1,&VAO);
+		glDeleteBuffers(1,&VBO);
+		glDeleteBuffers(1,&EBO);
+	}
     
     void Draw(Shader shader)
     {

@@ -12,16 +12,16 @@ MyEntity::MyEntity(float x, float y, float z, Camera *cCamera, Shader* mShader)
 	:Entity(x, y, z, cCamera)
 {
 
-	MyRenderComp = new RenderComponent(cCamera, mShader);
-	//MyRenderComp->setDiffuseColor(MyRenderComp->Program, *new Color(0,1,0,1));
-	PxVec3 dimensions(0.5, 0.5, 0.5);
-	PxBoxGeometry geometry(dimensions);
-	//PxMaterial* mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);//phymPhysics->createMaterial(0.5,0.5,0.5);
-	MyPhysxComp = new RigidDynamic(geometry, *new PxVec3(x, y, z), *new PxVec3(0.5, 0.5, 0.5));
-	//Plane = new RigidStatic(geometry,*new PxVec3(0,0,0),*new PxVec3(0.5,0.5,0.5));;
-	this->AddComponent(MyRenderComp);
-	this->AddComponent(MyPhysxComp);
-	//this->AddComponent(new TestInstComp());
+	//MyRenderComp = new RenderComponent(cCamera, mShader);
+	////MyRenderComp->setDiffuseColor(MyRenderComp->Program, *new Color(0,1,0,1));
+	//PxVec3 dimensions(0.5, 0.5, 0.5);
+	//PxBoxGeometry geometry(dimensions);
+	////PxMaterial* mMaterial = PhysxManager::Instance()->mPhysics->createMaterial(0.5, 0.5, 0.5);//phymPhysics->createMaterial(0.5,0.5,0.5);
+	//MyPhysxComp = new RigidDynamic(geometry, *new PxVec3(x, y, z), *new PxVec3(0.5, 0.5, 0.5));
+	////Plane = new RigidStatic(geometry,*new PxVec3(0,0,0),*new PxVec3(0.5,0.5,0.5));;
+	//this->AddComponent(MyRenderComp);
+	//this->AddComponent(MyPhysxComp);
+	////this->AddComponent(new TestInstComp());
 
 
 }

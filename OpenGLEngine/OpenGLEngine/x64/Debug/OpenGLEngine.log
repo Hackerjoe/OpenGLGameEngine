@@ -1,20 +1,14 @@
-﻿Build started 1/2/2016 9:02:44 PM.
-     1>Project "C:\Users\Despain\Documents\GitHub\OpenGL\OpenGLEngine\OpenGLEngine\OpenGLEngine.vcxproj" on node 2 (Build target(s)).
+﻿Build started 5/10/2016 12:55:38 AM.
+     1>Project "C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\OpenGLEngine\OpenGLEngine.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\Despain\Documents\Libs\assimp-3.1.1-win-binaries\include" /I"C:\Users\Despain\Documents\PhysX-3.3-master\PhysXSDK\Include" /I"C:\Users\Despain\Documents\Libs\glfw64\glfw-3.1.1.bin.WIN64\include" /I"C:\Users\Despain\Documents\Libs\GLEW\glew-1.13.0\include" /IC:\Users\Despain\Documents\Libs\DevIL\include /IC:\Users\Despain\Documents\Libs\glm /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt Program.cpp
-         Program.cpp
-     1>c:\users\despain\documents\github\opengl\openglengine\openglengine\Mesh.h(154): warning C4267: 'argument' : conversion from 'size_t' to 'GLsizei', possible loss of data
-     1>Program.cpp(38): warning C4244: 'argument' : conversion from 'double' to 'int', possible loss of data
-     1>Program.cpp(206): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Program.cpp(210): warning C4305: '-=' : truncation from 'double' to 'float'
-     1>Program.cpp(287): warning C4305: '+=' : truncation from 'double' to 'float'
-     1>Program.cpp(396): warning C4244: 'argument' : conversion from 'int' to 'GLfloat', possible loss of data
-     1>Program.cpp(409): warning C4305: 'initializing' : truncation from 'double' to 'const GLfloat'
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\CL.exe /c /I"C:\Users\Despain\Documents\Libs\assimp-3.1.1-win-binaries\include" /I"C:\Users\Despain\Documents\PhysX-3.3-master\PhysXSDK\Include" /I"C:\Users\Despain\Documents\Libs\glfw64\glfw-3.1.1.bin.WIN64\include" /I"C:\Users\Despain\Documents\Libs\GLEW\glew-1.13.0\include" /IC:\Users\Despain\Documents\Libs\DevIL\include /IC:\Users\Despain\Documents\Libs\glm9.7\glm /Zi /nologo /W3 /WX- /Od /D WIN32 /D _DEBUG /D _CONSOLE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc110.pdb" /Gd /TP /errorReport:prompt ImageLibManager.cpp
+         ImageLibManager.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Despain\Documents\GitHub\OpenGL\OpenGLEngine\x64\Debug\OpenGLEngine.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Despain\Documents\Libs\glfw64\glfw-3.1.1.bin.WIN64\lib-vc2012" /LIBPATH:"C:\Users\Despain\Documents\Libs\GLEW\glew-1.13.0\lib\Release\x64" /LIBPATH:C:\Users\Despain\Documents\Libs\DevIL /LIBPATH:"C:\Users\Despain\Documents\Libs\assimp-3.1.1-win-binaries\lib64" /LIBPATH:"C:\Users\Despain\Documents\PhysX-3.3-master\PhysXSDK\Lib\vc12win64" opengl32.lib glu32.lib PhysX3DEBUG_x64.lib PhysX3CommonDEBUG_x64.lib PhysX3ExtensionsDEBUG.lib assimp.lib DevIL.lib ILU.lib ILUT.lib glew32.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Despain\Documents\GitHub\OpenGL\OpenGLEngine\x64\Debug\OpenGLEngine.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Despain\Documents\GitHub\OpenGL\OpenGLEngine\x64\Debug\OpenGLEngine.lib" /MACHINE:X64 x64\Debug\Camera.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\x64\Debug\OpenGLEngine.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Users\Despain\Documents\Libs\glfw64\glfw-3.1.1.bin.WIN64\lib-vc2012" /LIBPATH:"C:\Users\Despain\Documents\Libs\GLEW\glew-1.13.0\lib\Release\x64" /LIBPATH:C:\Users\Despain\Documents\Libs\DevIL /LIBPATH:"C:\Users\Despain\Documents\Libs\assimp-3.1.1-win-binaries\lib64" /LIBPATH:"C:\Users\Despain\Documents\PhysX-3.3-master\PhysXSDK\Lib\vc12win64" opengl32.lib glu32.lib PhysX3DEBUG_x64.lib PhysX3CommonDEBUG_x64.lib PhysX3ExtensionsDEBUG.lib assimp.lib DevIL.lib ILU.lib ILUT.lib glew32.lib glfw3.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\x64\Debug\OpenGLEngine.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\x64\Debug\OpenGLEngine.lib" /MACHINE:X64 x64\Debug\Camera.obj
          x64\Debug\Color.obj
          x64\Debug\Component.obj
          x64\Debug\entity.obj
+         x64\Debug\FilterBaker.obj
          x64\Debug\HIDManager.obj
          x64\Debug\ImageLibManager.obj
          x64\Debug\JDFileManager.obj
@@ -26,14 +20,15 @@
          x64\Debug\PointLightSystem.obj
          x64\Debug\Program.obj
          x64\Debug\RenderComponent.obj
+         x64\Debug\RenderManager.obj
          x64\Debug\RigidDynamic.obj
          x64\Debug\RigidStatic.obj
          x64\Debug\Shader.obj
          x64\Debug\Vector3.obj
-     1>LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-         OpenGLEngine.vcxproj -> C:\Users\Despain\Documents\GitHub\OpenGL\OpenGLEngine\x64\Debug\OpenGLEngine.exe
-     1>Done Building Project "C:\Users\Despain\Documents\GitHub\OpenGL\OpenGLEngine\OpenGLEngine\OpenGLEngine.vcxproj" (Build target(s)).
+         x64\Debug\WindowManager.obj
+         OpenGLEngine.vcxproj -> C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\x64\Debug\OpenGLEngine.exe
+     1>Done Building Project "C:\Users\Despain\documents\visual studio 2012\Projects\OpenGLEngine\OpenGLEngine\OpenGLEngine.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.97
+Time Elapsed 00:00:01.85

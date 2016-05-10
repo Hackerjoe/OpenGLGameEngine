@@ -19,6 +19,7 @@
 #include <vector>
 #include <string>
 
+
 class ImageLibManager
 {
 
@@ -27,16 +28,15 @@ public:
 	static ImageLibManager* Instance();
 	void Init();
 	GLuint loadImage(const char* theFileName);
-	GLuint ImageLibManager::LoadIBLCubeMap(std::string FileNameStarter, GLuint NumOfMips);
+	GLuint LoadIBLCubeMap(std::string FileNameStarter, GLuint NumOfMips);
 	GLuint loadCubemap(std::vector<const GLchar*> faces);
+	bool saveTextureToFile(GLuint textureID, std::string fileName);
 private:
 
 	ImageLibManager();
 	~ImageLibManager();
 
 	static ImageLibManager* pInstance;
-	
-
 
 };
 

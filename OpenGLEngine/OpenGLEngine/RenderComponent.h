@@ -11,9 +11,6 @@
 #include "Component.h"
 #include <GL/glew.h>
 #include <vector>
-//#include <OpenGL/OpenGL.h>
-//#include <GLFW/glfw3.h>
-
 #include "HIDManager.h"
 #include "JDFileManager.h"
 #include "JDMath.h"
@@ -21,17 +18,20 @@
 #include "Camera.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "Mesh.h"
 
 class RenderComponent : public Component
 {
 public:
-	RenderComponent(Camera* cCamera, Shader* mShader);
+	RenderComponent(Camera* camera, Shader NewShader, Mesh NewMesh);
 	~RenderComponent();
 
 	virtual void Update();
 	virtual void Start();
 
 	Shader* shader;
+	Mesh* RenderMesh;
+
 	float test;
 private:
 	void Draw();
