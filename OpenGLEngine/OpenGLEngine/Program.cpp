@@ -21,6 +21,7 @@ Program::Program()
     ScreenWidth = 1920;
     ScreenHeight = 1080;
     testx = 0;
+	testy = 12;
 }
 
 
@@ -202,11 +203,11 @@ void Program::render()
     
     if (bSwitch == false)
     {
-        testx += 0.005;
+        testx += 0.05;
     }
     else
     {
-        testx -= 0.005;
+        testx -= 0.05;
     }
     
     // Move Camera.
