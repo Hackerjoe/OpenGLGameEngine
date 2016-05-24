@@ -9,7 +9,7 @@
 #ifndef __OpenGL__ImageLibManager__
 #define __OpenGL__ImageLibManager__
 
-#include <GL\glew.h>
+#include <GL/glew.h>
 #include <IL/il.h>
 #include <IL/ilu.h>
 #include <IL/ilut.h>

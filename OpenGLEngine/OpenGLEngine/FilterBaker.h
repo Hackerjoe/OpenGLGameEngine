@@ -11,7 +11,7 @@ using namespace std;
 class FilterBaker
 {
 public:
-	FilterBaker(GLFWwindow* window, GLint size);
+	FilterBaker(std::vector<const GLchar*> faceImages,string outputName,GLint size);
 	~FilterBaker(void);
 
 	GLuint frameBuffer;

@@ -1,48 +1,133 @@
 #include "FilterBaker.h"
+#include "ImageLibManager.h"
+#include <vector>
+#include "Model.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <cmath>
 
-
-FilterBaker::FilterBaker(GLFWwindow* window,GLint size)
+FilterBaker::FilterBaker(std::vector<const GLchar*> faceImages,string outputName,GLint size)
 {
+	GLuint cubemapTexture = ImageLibManager::Instance()->loadCubemap(faceImages);
 
-	
-//	GLuint cubeMapTexture = ImageLibManager::Instance()->loadCubemap(faces);
-	cout << "start" << endl;
+
+	glViewport(0, 0, size, size);
+
+	std::vector<GLubyte> testData(512 * 512 * 4, 255);
+	GLuint texture;
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, size, size,0, GL_RGB, GL_UNSIGNED_BYTE, &testData[0]);
+
+
 	glGenFramebuffers(1, &frameBuffer);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBuffer);
-    
-	
-    glGenTextures(1, &frameBuffer);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, colorAttachment);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBuffer);
 
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X, 0, GL_RGBA, size, size, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_X, 0, GL_RGBA, size, size, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Y, 0, GL_RGBA, size, size, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, 0, GL_RGBA, size, size, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_Z, 0, GL_RGBA, size, size, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-	glTexImage2D(GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, 0, GL_RGBA, size, size, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+	GLuint fbo = 0;
+	glGenFramebuffers(1, &frameBuffer);
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, frameBuffer);
+	glFramebufferTexture(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, texture, 0);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_X, colorAttachment, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_NEGATIVE_X, colorAttachment, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_Y, colorAttachment, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_NEGATIVE_Y, colorAttachment, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_POSITIVE_Z, colorAttachment, 0);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_CUBE_MAP_NEGATIVE_Z, colorAttachment, 0);
-
-	glGenRenderbuffers(1, &depthAttachment);
-	glBindRenderbuffer(GL_RENDERBUFFER, depthAttachment); 
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT16, size, size); 
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthAttachment);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		std::cout << "Framebuffer not complete for baker!" << std::endl;
 
-	// Detach the framebuffer.
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+	double maxMipLevels = log(size) / log(2);
 
-	cout << "end" << endl;
+
+	Shader* shader = new Shader("Resources/Shaders/simple.vert","Resources/Shaders/filterbacker.frag");
+	for(int mips = 0; mips <= maxMipLevels; mips++)
+	{
+		int sizeOfTexture = 128 >> mips;
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, sizeOfTexture, sizeOfTexture,0, GL_RGB, GL_UNSIGNED_BYTE, &testData[0]);
+		glViewport(0, 0, sizeOfTexture, sizeOfTexture);
+
+		float roughness;
+		if(mips == 0)
+			roughness = 0;
+		else
+			roughness = mips / maxMipLevels;
+
+
+		for(int face = 0; face <= 5; face++)
+		{
+			glClearColor(1.0,1.0,0.0,1.0);
+			glClear(GL_COLOR_BUFFER_BIT);
+
+			shader->UseShader();
+
+			glUniform1i(glGetUniformLocation(shader->GetShader(),"mipLevel"),mips);
+			glUniform1i(glGetUniformLocation(shader->GetShader(),"cubeSize"),sizeOfTexture);
+			glUniform1f(glGetUniformLocation(shader->GetShader(),"Roughness"),roughness);
+			glUniform1i(glGetUniformLocation(shader->GetShader(),"face"),face);
+			glActiveTexture(GL_TEXTURE0);
+			GLuint quadVAO = 0;
+			GLuint quadVBO;
+			if (quadVAO == 0)
+			{
+				GLfloat quadVertices[] = {
+					// Positions        // Texture Coords
+					-1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+					-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+					1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+					1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+				};
+				// Setup plane VAO
+				glGenVertexArrays(1, &quadVAO);
+				glGenBuffers(1, &quadVBO);
+				glBindVertexArray(quadVAO);
+				glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+				glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+				glEnableVertexAttribArray(0);
+				glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+				glEnableVertexAttribArray(1);
+				glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+			}
+			glBindVertexArray(quadVAO);
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+			glBindVertexArray(0);
+
+			glBindTexture(GL_TEXTURE_2D, texture);
+			std::string fileName = outputName + "_m0" + std::to_string(mips) + "_c0"+ std::to_string(face) + ".png";
+			ImageLibManager::Instance()->saveTextureToFile(texture,fileName);
+		}
+	}
+	
+	shader = new Shader("Resources/Shaders/simple.vert","Resources/Shaders/EnvironmentBRDF.frag");
+	shader->UseShader();
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 256, 256,0, GL_RGB, GL_UNSIGNED_BYTE, &testData[0]);
+	glViewport(0, 0, 256, 256);
+
+	GLuint quadVAO = 0;
+	GLuint quadVBO;
+	if (quadVAO == 0)
+	{
+		GLfloat quadVertices[] = {
+			// Positions        // Texture Coords
+			-1.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+			1.0f, 1.0f, 0.0f, 1.0f, 1.0f,
+			1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+		};
+		// Setup plane VAO
+		glGenVertexArrays(1, &quadVAO);
+		glGenBuffers(1, &quadVBO);
+		glBindVertexArray(quadVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	}
+	glBindVertexArray(quadVAO);
+	glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+	glBindVertexArray(0);
+
+	ImageLibManager::Instance()->saveTextureToFile(texture,"ENVBRDF.png");
+
+
 
 }
 

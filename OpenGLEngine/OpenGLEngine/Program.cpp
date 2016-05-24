@@ -32,7 +32,7 @@ bool Program::Init(int argc, char** argv)
 
 
 	// Create GL Context 3.0 and up.
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4.1);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -72,9 +72,15 @@ bool Program::Init(int argc, char** argv)
 	glViewport(0, 0, ScreenWidth, ScreenHeight);
 
 	//cout << "Framebuffer size" << ScreenWidth << ScreenHeight << endl;
-
-	//FilterBaker* baker = new FilterBaker(window,512);
-
+	//std::vector<const GLchar*> faceImage;
+	//faceImage.push_back("Resources/CubeMap1/CubeMap1_m00_c00.bmp");
+	//faceImage.push_back("Resources/CubeMap1/CubeMap1_m00_c01.bmp");
+	//faceImage.push_back("Resources/CubeMap1/CubeMap1_m00_c02.bmp");
+	//faceImage.push_back("Resources/CubeMap1/CubeMap1_m00_c03.bmp");
+	//faceImage.push_back("Resources/CubeMap1/CubeMap1_m00_c04.bmp");
+	//faceImage.push_back("Resources/CubeMap1/CubeMap1_m00_c05.bmp");
+	//FilterBaker* baker = new FilterBaker(faceImage,"cube",128);
+	
 	//TheLevel = new Level(ScreenWidth,ScreenHeight);
 
 	//Now we read and compile our shaders for our deferred renderer.
@@ -87,7 +93,6 @@ bool Program::Init(int argc, char** argv)
 	glUniform1i(glGetUniformLocation(shaderLightingPass->GetShader(), "gPosition"), 0);
 	glUniform1i(glGetUniformLocation(shaderLightingPass->GetShader(), "gNormal"), 1);
 	glUniform1i(glGetUniformLocation(shaderLightingPass->GetShader(), "gAlbedoSpec"), 2);
-	glUniform1i(glGetUniformLocation(shaderLightingPass->GetShader(), "Panorama"), 3);
 
 	//Load models using assimp.
 	// Load Nanosuit model (Nanosuit model is from Crysis 2).
@@ -151,20 +156,23 @@ bool Program::Init(int argc, char** argv)
 
 	// Create projection and view.
 	projection = glm::perspective(45.0f, (float)ScreenWidth/(float)ScreenHeight, 0.1f, 100.0f);
-	view = glm::lookAt(glm::vec3(0, 0, 4), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	view = glm::lookAt(glm::vec3(0, 0, 4), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 
 
-	GLuint cubemapTexture = ImageLibManager::Instance()->LoadIBLCubeMap("Resources/CubeMap1",9);
-	GLuint testTexture = ImageLibManager::Instance()->loadImage("Resources/CubeMap1/CubeMap1_m00_c00.bmp");
-
-	ImageLibManager::Instance()->saveTextureToFile(testTexture,"test.png");
+	GLuint cubemapTexture = ImageLibManager::Instance()->LoadIBLCubeMap("Resources/Filter/cube",8);
 
 	Panorama = new Texture();
 	Panorama->id = cubemapTexture;
 
-	glfwSetKeyCallback(window, HIDManager::Instance()->key_callback);
+	GLuint secondSumImage = ImageLibManager::Instance()->loadImage("Resources/ENVBRDF.png");
 
+	secondsum = new Texture();
+	secondsum->id = secondSumImage;
+
+
+	glfwSetKeyCallback(window, HIDManager::Instance()->key_callback);
+	
 	return true;
 }
 
@@ -230,7 +238,7 @@ void Program::render()
 	}
 	//std::cout <<  "MIP: " <<MipLevel << std::endl;
 	// Move Camera.
-	view = glm::lookAt(glm::vec3(0, 1, 2), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	view = glm::lookAt(glm::vec3(0, 0, 1), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 
 	//Set gbuffer to draw to.
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, gBuffer);
@@ -306,8 +314,8 @@ void Program::GeoPass()
 	testy += 0.01;
 	// Create Model 4x4Matix for nanosuit model
 	glm::mat4 model;
-	model = glm::translate(model, glm::vec3(0.0f, -1.75, 0.1f)); 
-	model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	
+	model = glm::translate(model, glm::vec3(0.0f, -0.6, 0.1f)); 
+	model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	
 	model = glm::rotate(model,testy,glm::vec3(0,1,0));
 
 	// Insert values into shader progam
@@ -317,7 +325,7 @@ void Program::GeoPass()
 
 	//Draw into models into gBuffer
 	Nanosuit->Draw(*shaderGeometryPass);
-
+	SphereModel->Draw(*shaderGeometryPass);
 
 	glDepthMask(GL_FALSE);
 
@@ -391,7 +399,8 @@ void Program::LightPass()
 
 	glActiveTexture(GL_TEXTURE3);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, Panorama->id);
-
+	glActiveTexture(GL_TEXTURE4);
+	glBindTexture(GL_TEXTURE_2D, secondsum->id);
 
 	// Stencil out what we dont want.
 	glStencilFunc(GL_NOTEQUAL, 0,0xff);
@@ -409,7 +418,8 @@ void Program::LightPass()
 
 	// Get the lighting shader.
 	shaderLightingPass->UseShader();
-
+	glUniform1i(glGetUniformLocation(shaderLightingPass->GetShader(), "environmentMap"), 3);
+	glUniform1i(glGetUniformLocation(shaderLightingPass->GetShader(), "secondSum"), 4);
 	// Pass in screenwidth and height.
 	glUniform2f(glGetUniformLocation(shaderLightingPass->GetShader(),"screensize"),ScreenWidth,ScreenHeight);
 
@@ -419,7 +429,7 @@ void Program::LightPass()
 
 
 	// Pass in the position of the camera.
-	glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "viewPos"), 1, glm::value_ptr(glm::vec3(0, 1, 2)));
+	glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "viewPos"), 1, glm::value_ptr(glm::vec3(0, 1, 1)));
 
 
 
@@ -431,11 +441,11 @@ void Program::LightPass()
 
 	// This will soon be its own buffer.
 	// The roughness value of the model.
-	glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "roughnessValue"),0.5f);
+	glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "roughnessValue"),0.0);
 	// And F0 and k values for fresnel.
-	glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "F0"),0.3f);
+	glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "F0"),0.6f);
 	glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "k"),0.6f);
-
+	glUniform1f(glGetUniformLocation(shaderLightingPass->GetShader(), "metal"),MipLevel);
 
 
 	// Create 4x4 matrix for sphere model/light1.
@@ -444,8 +454,6 @@ void Program::LightPass()
 	light1 = glm::scale(light1, glm::vec3(1.0f, 1.0f, 1.0f));
 
 
-
-	glUniform1i(glGetUniformLocation(shaderLightingPass->GetShader(),"MipMapLevel"),MipLevel);
 	// The color of the light in for the shader.
 	glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Color"), 1, glm::value_ptr(glm::vec3(1,1,1)));
 	// Light position
@@ -461,7 +469,7 @@ void Program::LightPass()
 	light2 = glm::translate(light2, glm::vec3(0.0f, 0, 1));
 	light2 = glm::scale(light2, glm::vec3(1.0f, 1.0f, 1.0f));
 	// Light 2 color.
-	glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Color"), 1, glm::value_ptr(glm::vec3(1,0,0)));
+	glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Color"), 1, glm::value_ptr(glm::vec3(1,1,1)));
 	// Light 2 position.
 	glUniform3fv(glGetUniformLocation(shaderLightingPass->GetShader(), "light.Position"), 1, glm::value_ptr(glm::vec3(0,0,1)));
 	// Light Model matrix.

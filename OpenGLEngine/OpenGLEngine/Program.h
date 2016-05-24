@@ -49,7 +49,7 @@ public:
     float testy;
     float testz;
 
-	int MipLevel;
+	float MipLevel;
 
 	bool keydown;
 	bool keydown1;
@@ -82,6 +82,7 @@ private:
 
     
     Texture* Panorama;
+	Texture* secondsum;
     double CurrentTime;
     int NBFrames;
     double LastTime;

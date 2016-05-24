@@ -123,7 +123,7 @@ GLuint ImageLibManager::LoadIBLCubeMap(std::string FileNameStarter, GLuint NumOf
 			/*
 			* This generates the name of the file. For example FILENAME_m00_c00.bmp this is the on the mipmap level 0 and the face 0.
 			*/
-			std::string FaceImageName = FileNameStarter + "_m0" + std::to_string(CurrentMip) + "_c0" + std::to_string(i) + ".bmp";
+			std::string FaceImageName = FileNameStarter + "_m0" + std::to_string(CurrentMip) + "_c0" + std::to_string(i) + ".png";
 			const char *CharFileName = FaceImageName.c_str();
 
 			ILuint image = ilGenImage();
@@ -257,8 +257,7 @@ GLuint ImageLibManager::loadImage(const char* theFileName)
 
 bool ImageLibManager::saveTextureToFile(GLuint textureID, std::string fileName)
 {
-	// Bind texture
-	glBindTexture(GL_TEXTURE_2D, textureID);
+
 
 	// Get Texture Information
 	GLint width,height,internalFormat;
@@ -276,6 +275,9 @@ bool ImageLibManager::saveTextureToFile(GLuint textureID, std::string fileName)
 	case GL_RGBA:
 		numBytes = width * height * 4;
 		break;
+	case GL_RG16:
+		numBytes = width * height * 4;
+		break;
 	default: 
 		break;
 	}
@@ -288,9 +290,7 @@ bool ImageLibManager::saveTextureToFile(GLuint textureID, std::string fileName)
 		// Get pixel data!
 		glGetTexImage(GL_TEXTURE_2D, 0, internalFormat, GL_UNSIGNED_BYTE, pixels);
 
-		// Unbind the texture.
-		glBindTexture(GL_TEXTURE_2D, 0);
-
+	
 		// Create DEVIL image.
 		ILuint imageID = ilGenImage();
 		ilBindImage(imageID);
